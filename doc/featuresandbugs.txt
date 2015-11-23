@@ -1,0 +1,2 @@
+2. when change password dynamically ask for current dynamically
+3. add city in region if not already there

@@ -1,0 +1,51 @@
+<div style="text-align:right" onclick="newSocial()">@commonlabel.new@ @label.chat@</div>
+
+<table id="chatid" name="chatid">
+  <tr>
+     <th>X</th><th>@label.type@</th><th>@label.description@</th>
+     <th>@label.id@</th><th>@label.host@</th><th>@label.room@</th>
+  </tr>
+  @chatid(
+  <tr>
+    <td><input type="checkbox" name="chatidmark"></td>
+    <td >@element.getType*()*@</td>
+    <td class="drilled" onClick="editChat(@^element.getTypeInt*()*@,'@^element.getDescription*()*@', '@^element.getValue*()*@', '@^element.getHost*()*@', '@^element.getRoom*()*@')">@element.getDescription*()*@</td>
+    <td>@element.getValue*()*@</td>
+    <td>@element.getHost*()*@</td>
+    <td>@element.getRoom*()*@</td>
+  </tr>
+  )@
+ </table> 
+ <div id="edit_chat" class="edit_box" style="display:none">
+<div class="close_corn" onclick="closeEdit()">@commonlabel.close@</div>
+   <div>@label.type@</div>
+   <select name="chatidtype">
+       @chatidtype(<option value="@addressbook.servlet.model.GenericOperations.increment*(@index@)*@">@type@</option>)@
+    </select>
+   <div>@label.description@</div>
+   <div><input type="text" name="chatiddescription" value=""></div>
+   <div>@label.id@</div>
+   <div><input type="text" name="chatidvalue" value=""></div>
+   <div>@label.host@</div>
+   <div><input type="text" name="chatidhost" value=""></div>
+   <div>@label.room@</div>
+   <div><input type="text" name="chatidroom" value=""></div>
+   <input type="hidden" name="chatidoldvalue" >
+   <div onclick="document.contactview.submit.click()">@commonlabel.apply@</div>
+</div>
+<script>
+   function closeEdit() {
+	   getElement('edit_chat').style.display='none';
+   }
+   function newSocial() {
+	   editChat(4, '', '', '', '');
+   }
+   function editChat(t,d,i, h,r) {
+	   document.contactview.chatidtype.selectedIndex=t-1;
+	   document.contactview.chatiddescription.value=d;
+	   document.contactview.chatidvalue.value=i;
+	   document.contactview.chatidhost.value=h;
+	   document.contactview.chatidroom.value=r;
+	   getElement('edit_chat').style.display='';
+   }
+</script>

@@ -1,0 +1,63 @@
+<script>
+ var data1 = [
+      @picture(
+		 {'fileid': '@^element.getValue*()*@', 'ix':@index@,
+			 'description':'@^element.getDescription*()*@', 'mimetype': '@^element.getType*()*@'
+		 },
+	  )@
+	];
+ 
+   function newFile() {
+	   getElement('file_add').style.display='';
+   }
+   function closeNew() {
+	   getElement('file_add').style.display='none';
+   }
+   function populateData() {
+	   document.contactview.encoding='multipart/form-data';
+	   document.contactview.enctype='multipart/form-data';
+	   //alert(data1);
+	   var t = getElement('files');
+	   
+	   for (var r in data1) {
+		   if (data1[r]) {
+			   //alert('insert;'+r+' >'+data1[r].description);
+			   var row=t.insertRow(1);
+			   var cell1=row.insertCell(0);
+			   var cell2=row.insertCell(1);
+			   var cell3=row.insertCell(2);
+			   var cell4=row.insertCell(3);
+			   row.insertCell(4);
+			   cell1.innerHTML='<input type="checkbox" name="deletepicture" value="'+data1[r].ix+'"/>';
+			   if (data1[r].mimetype == 'image') {
+				   cell4.innerHTML='<img src="Pictureloader?value='+encodeURIComponent(data1[r].fileid)+'&index='+data1[r].ix+'" border="0">';
+			   } else {
+				   cell4.innerHTML='<a href="Pictureloader?value='+encodeURIComponent(data1[r].fileid)+'&index='+data1[r].ix+'" target="_blank">@commonlabel.getthem@</a>';
+			   }
+			   cell2.innerHTML=data1[r].description;
+			   cell3.innerHTML=data1[r].mimetype;
+		   }
+	   }
+   }
+</script>
+
+<div style="text-align:right" onclick="newFile()">@commonlabel.new@ @label.file@</div>
+
+<table name="files" id="files">
+<tr>
+  <th>&nbsp;</th>
+  <th>@label.name@</th>
+  <th>@label.type@</th>
+  <th>@label.file@</th>
+  <th>&nbsp;</th>
+</tr>
+</table>
+<div id="file_add" class="edit_box"  style="display:none;">
+<div class="close_corn" onclick="closeNew()">@commonlabel.close@</div>
+Add from camera
+<input type="file" accept="image/*;capture=camera" name="picture"></input>
+<br/>
+Record memo
+<input type="file" accept="audio/*;capture=microphone" name="picture"></input>
+<div onclick="document.contactview.submit.click()">@commonlabel.apply@</div>
+</div> 

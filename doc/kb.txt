@@ -1,0 +1,4 @@
+Paypal login URL
+https://www.paypal.com/cgi-bin/webscr?cmd=_login-submit&login_cmd=&login_params=&login_cancel_cmd=&login_email={0}&login_password={1}&submit=Log+In
+where: 0 - e-mail
+       1 - password

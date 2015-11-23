@@ -1,0 +1,87 @@
+<div style="text-align:right" onclick="newAccount()">@commonlabel.new@ @label.account@</div>
+<table>
+  @account(
+    <tr><td><input type="checkbox"></td><td class="drilled" colspan="2" onclick="populateAccnt('@^element.getValue*()*@', '@element.getLink*()*@')">@element.getDescription*()*@</td><td rowspan="2"><a target="accnt_accss" href="@element.getLink*()*@">&gt;</a></td></tr>
+    <tr><td colspan="3">@element.getName*()*@  @element.getValue*()*@</td></tr>
+  )@
+  
+</table>
+
+ <div id="accnt_form" class="edit_box" style="display:none;">
+ <div class="close_corn" onclick="closeEdit()">@commonlabel.close@</div>
+  <div>@label.id@<br/>
+  <input type="text" name="accountvalue" value=""></div>
+  <div>@label.description@<br/>
+  <input type="text" name="accountdescription" value=""></div>
+  <div>@label.account@<br/>
+  <input type="text" name="accountname" value=""></div>
+  <div>@label.password@<br/>
+  <input type="password" name="accountpassword" value=""></div>
+  <div id="password_vis"></div><a href="javascript:void(0)" onclick="showPass()">@label.show@</a>
+  
+  <div>@label.access@<br/>
+  <input type="text" name="accountlink" value=""></div>
+  <input type="hidden" name="accounthash" value="">
+  <div onclick="document.contactview.submit.click()">@commonlabel.apply@</div>
+ </div>
+ <script>
+     function closeEdit() {
+    	 getElement('accnt_form').style.display='none';
+     }
+     function newAccount() {
+    	 document.contactview.accountvalue.value = '';
+		 document.contactview.accountname.value = '';
+		 document.contactview.accountdescription.value = '';
+		 document.contactview.accounthash.value = '';
+		 document.contactview.accountlink.value = '';
+		 document.contactview.accountpassword.value = '********';
+		 getElement('password_vis').innerHTML = '';
+		 getElement('accnt_form').style.display='';
+     }
+     function updateAccnt() {
+    	 makeGenericAjaxCall("Contactview/ajax/updateAccnt", formValues2String(document.forms.accnt), true, function(res) {
+    		 if (res == 'Ok')
+    			 alert('good');
+    		 else
+    			 alert(res);
+    	 });
+     }
+
+     function deleteAccnt(val, lnk) {
+    	 var val = document.contactview.accountvalue.value;
+    	 var lnk = document.contactview.accountlink.value;
+    	 makeGenericAjaxCall("Contactview/ajax/deleteAccnt", 'account='+encodeURIComponent(val)+'&accountlink='+encodeURIComponent(lnk)+
+    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@', true,
+    			 function (dat) {
+    	 });
+     }
+     
+     function populateAccnt(val, lnk) {
+    	 makeJSONAjaxCall('Contactview/ajax/getAccntInfo',
+    			 'account='+encodeURIComponent(val)+'&accountlink='+encodeURIComponent(lnk)+
+    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@', true,
+    			 function (dat) {
+    		 document.contactview.accountvalue.value = dat.accountvalue;
+    		 document.contactview.accountname.value = dat.accountname;
+    		 document.contactview.accountdescription.value = dat.accountdescription;
+    		 document.contactview.accounthash.value = dat.accounthash;
+    		 document.contactview.accountlink.value = dat.accountlink;
+    		 document.contactview.accountpassword.value = '********';
+    		 getElement('password_vis').innerHTML = '';
+    		 getElement('accnt_form').style.display='';
+    	 });
+     }
+     
+     function showPass() {
+    	
+    	 var val = document.contactview.accountvalue.value;
+    	 var lnk = document.contactview.accountlink.value;
+    	 
+    	 makeGenericAjaxCall("Contactview/ajax/getPassword",
+    			 'account='+encodeURIComponent(val)+'&accountlink='+encodeURIComponent(lnk)+
+    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@', true,
+    			  function(dat) {
+    		 getElement('password_vis').innerHTML = dat;
+    	 });
+     }
+ </script>

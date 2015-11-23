@@ -1,0 +1,42 @@
+<div style="text-align:right" onclick="newNote()">@commonlabel.new@ @label.commentary@</div>
+<table name="commentary" id="commentary">
+<tr>
+  <th>X</th>
+  <th>@label.name@</th>
+  <th>@label.commentary@</th>
+  <th>&nbsp;</th>
+</tr>
+@commentary(
+<tr>
+  <td valign="top"><input type="checkbox" name="emailmark"></td>
+  <td valign="top">@element.getDescription*()*@</td>
+  <!-- here is data duplication in parameters, right solution just mark a row with id and got from there --> 
+  <td onclick="editNote('@^element.getDescription*()*@', '@^element.getValue*()*@')">@.element.getNormalized*()*@</td>  
+  <td>&nbsp;</td>
+</tr>
+)@
+</table>
+
+<div id="note_edit" class="edit_box" style="display:none;width:90%">
+  <div class="close_corn" onclick="closeEdit()">@commonlabel.close@</div>
+  <div>@label.name@<br/>
+  <input type="text" name="commentarydescription" value=""></div>
+  <div>@label.commentary@<br/>
+  <textarea name="commentaryvalue"  rows="20" style="width:100%"></textarea></div>
+  <div onclick="document.contactview.submit.click()">@commonlabel.apply@</div>
+</div>
+
+<script>
+   // TODO can make the methods reusable across all tabs
+   function editNote(n, c) {
+	   document.contactview.commentarydescription.value=n;
+	   document.contactview.commentaryvalue.value=c;
+	   getElement('note_edit').style.display = '';
+   }
+   function newNote() {
+	   editNote('', '');
+   }
+   function closeEdit() {
+	   getElement('note_edit').style.display = 'none';
+   }
+</script>

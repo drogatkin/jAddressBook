@@ -1,0 +1,3 @@
+# sh/bin
+# use JDK 1.6 or above
+javaw -cp "./lib/addressbook.jar:./ext/lib/aldan3.jar" -DjAddressBook.home=./data -Daddressbook.DTD=file:./data addressbook.AddressBookFrame

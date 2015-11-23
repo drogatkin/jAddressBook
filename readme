@@ -1,0 +1,109 @@
+           jAddressBook version 1.7.58
+           ===========================
+
+  1. The purpose of the program.
+  2. How to install the program.
+  3. The status of the program.
+  4. The distribution status of the program.
+  5. How to contact the author in the case of questions or problems.
+
+     The purpose of the program
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  jAddressBook helps to keep different contact and address information in one place.
+  Distinctive features of the program include:
+    - Java based multi platform open source codebase allowing to run it
+      virtually anywhere including mobile devices.
+    - Web interface with centralized server and shared folders.
+    - Web UI automatically adjustable to size of browser mobile or standard.
+    - Can run directly on mobile platfroms as Android under app server as Atjeews. 
+    - XML based format keeping address book information made it never obsolete
+      and easy migrated between different applications. 
+    - No any restriction on format and number personal and contacting
+      information. For example, person can have unlimited numbers of
+      telephone numbers, addresses, e-mails, comments and so on.
+    - Intuitive, and bright user interface. 
+    - Possible using as local, as a remote data storage to easy access
+      your address book from any location. Most advanced security
+      technology protect your data to be captured or stolen.
+    - Easy integration with any existing software to obtain address book
+      information, as e-mail client, messengers, chat client, web browsers. 
+    - Low costs software, it's free for personal using. 
+    - Possibility to build bookmarks and certificate information to fast
+      access to favorite Web sites.
+    - Powerful passwords management capabilities.
+    - National language supported for everything.
+    - Keeping user profile and possibility to export it as a record to
+      another address book. Only desired field can be exported.
+    - Import user profiles from other address book program including popular,
+      like Outlook.
+    - Synchronization multiple local and remote data storages.
+
+  This program is integrated with MediaChest.
+
+
+     How to install the program
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~
+  Four versions of the distribution jAddressBook are available.
+  1. .war file ready to be dropped in any J2EE servlet container app deployment directory
+  2. self deployer and starter .jar, just run it in your favorite file manager from web-bin
+  3. desktop app run .jar file in lib
+  4. Android packaged .war for deploying on Android app servers as Atjeews and Jetty
+  The distribution .zip file containing sources, web server, .war and .jar files ready
+  for launching as in web UI as in a standalone Swing Java client configuration.
+
+  Regardless which type of distribution you selected, web jAddressBook will be available
+  under URL http://localhost:8080/addressbook/ unless you did web.xml modifications.
+  If you deal with third type of distribution, then it's highly recommended
+  to install 7Bee java build tool first. Check URL http://7bee.j2ee.us/bee/index-bee.html
+  Unzip a distribution package with preserving directories. Modify env.xml to provide
+  right path to JDK/RE 1.5/6/7 installation. Now you are ready to go.
+  Typing 'bee' without parameters will launch Swing client. Typing 'bee runw' will launch
+  web UI version. You can also reach Swing client as a webstarted application.
+  You can sign jar files for a webstarted version using own certificate. Use 'bee sign' for that.
+  Note that web UI uses port 80 by default, so you may need to edit bee.xml to select
+  different port.
+
+     Windows executable version:
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  No such version is planned.
+
+     Pure Java version (any platform where Java is available):
+     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  If you don't have preinstalled Java VM on you computer, then you have to do
+  that. In depending on your OS, you can download the latest Oracle's JRE 1.7 from
+ http://www.oracle.com/technetwork/java/javase/downloads/index.html 
+  Note that no JVM installation required if you are already on mobile 
+  platfrom such as Android. Using Arch Linux and Orcale ARM HFP Java 8 is recommended
+  for Raspberry Pi deployments.
+  
+     The status of the program
+     ~~~~~~~~~~~~~~~~~~~~~~~~~
+  This program is freeware only for personal using. For commercial using
+  of this program, please contact Dmitriy Rogatkin at jAddressBook@gmail.com.
+  Notice, that the author provides the full source code.
+  A Web site where you can find more information about this program,
+  including the latest build is: http://jaddressbook.sourceforge.net/ .
+
+    The distribution status of the program
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  jAddressBook is freely distributable software. Use it, make it better,
+  give it to your friends, enemies, and spouses.
+
+    Licensing
+    ~~~~~~~~~
+
+  BSD like license agreement has to be accepted before using and modifying this
+  program as in source or in binary forms.
+    
+    How to contact the author in the cases of questions or problems
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  Feel free to contact Dmitriy Rogatkin the author of the jAddressBook,
+  in case of any questions, suggestions, or bug reports.
+  Use e-mail: jAddressBook@gmail.com.
+  Visit also web site, http://jaddressbook.sourceforge.net/, for obtaining
+  the latest information.
+# $Id: readme.txt,v 1.8 2013/02/15 06:12:45 cvs Exp $

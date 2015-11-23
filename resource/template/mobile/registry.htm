@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+@%'mobile/head.htm'@
+<div class="smallHeader">@label.header@</div>
+<div id="error" class="error_block" style.display="@error{@(none)@}@">@error@</div>
+<form name="registry" action="/addressbook/ab/@servlet@">
+<div class="label">@label.name@</div>
+@mode{
+  @edit(@name@ <input type="hidden" name="name" value="@name@" />)@
+  @(<input type="text" name="name" value="@name@" />
+  )@ 
+  }@
+  
+  <div class="label">@label.email@<br/><input type="text" name="email" value="@email@" /></div>
+  <div class="label">@label.pass@<br/><input type="password" name="password"></div>
+  <div class="label">@label.passrep@<br/><input type="password" name="password2" onBlur="matchPwds()"></div>
+  
+  <div class="label">@label.language@<br/><input type="text" name="language" value="@language@"></div>
+  <div class="label">@label.timezone@<br/><input type="text" name="timezone" value="@timezone@"></div>
+  <div id="imageverification">
+@mode{
+@edit()@
+@( @name{@""()@ @(<img src="Challengeimage?name=@name@">@label.challengetoken@<p>
+                     <input type="text" value="@challengetoken@" name="challengetoken" autocomplete="off" onkeydown="return submitFormOnEnter(this, event)">)@}@ )@
+}@
+
+  </div>
+  
+  <div><input type="submit" name="submit" value="@label.go@"></input></div>
+</form>
+  @mode{
+ @edit(@%'mobile/foot.htm'@)@
+ @(<a href="http://jaddressbook.sf.net" target="_blank">@commonlabel.home@</a> &nbsp; | &nbsp;
+   <a href="@contextpath@">@label.login@</a>)@
+ }@
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+@%'mobile/head.htm'@
+<script>
+   function openMenu() {
+	   getElement('menu').style.display = '';
+   }
+   function closeMenu() {
+	   getElement('menu').style.display = 'none';
+   }
+   function openTab(tab) {
+	     window.location = 'Contactview?name=@:name@&hash=@contact.hashCode*()*@&folder=@:folder@&tab='+tab; 
+   }
+</script>
+<form name="contactview" action="Contactview" method="post">
+<div><a href="Abfrontview?nodeid=@:folder@">@folder@</a></div>
+<div>@label.name@</div>
+<div><input type="text" name="name" value="@name@" size="32"></div>
+<div onclick="openMenu()" style="color:white;background:green;width:7em;margin-top:1em;margin-bottom:0.5em">@commonlabel.menu@</div>
+<div id="menu" style="display:none; border:1px solid black;">
+ <div onclick="closeMenu()" style="text-align:right">@commonlabel.close@</div>
+  @tab(<div style="padding-top:0.5em;padding-left:1em"><a href="javascript:void(0)" onclick="openTab('@element@')">@request.getAttribute*(LABEL)*.getString*(@element@)*@</a></div>)@
+</div>
+
+@%modeview@
+
+<input type="hidden" name="beforename" value="@contact.getName*()*.getLast*()*@">
+<input type="hidden" name="hash" value="@contact.getName*()*.hashCode*()*@">
+<input type="hidden" name="folder" value="@folder@">
+
+<div><input type="submit" name="submit" value="@commonlabel.save@"></input>
+</div>
+</form>
+@%'mobile/foot.htm'@
+</html>

@@ -1,0 +1,317 @@
+<html>
+<head>
+<title>jAddressBook Home Page</title>
+<script src="http://jaddressbook.knitknot.info/addressbook/ajaxhelper.js" language="Javascript"></script>
+<script>
+  // <!--  $Id: index.html,v 1.11 2013/02/15 06:12:46 cvs Exp $
+  function checkLogin(form) {
+             form.elements['submit.x'].disabled = false;
+             if (form.elements['ssl'].checked == true) 
+                 form.action = 'https://jaddressbook.knit.knot.info/addressbook/ab/Login';
+             form.submit();
+  }
+
+  function handleEnterSubmission (field, evt) {
+     var keyCode = evt.which ? evt.which : evt.keyCode;
+     if (keyCode == 13) {
+       checkLogin(field.form);
+       return false;
+     }
+     else 
+       return true;
+  }
+  // -->
+</script>
+<style>
+<!--
+
+div {
+font-family: arial,sans-serif;
+}
+
+-->
+</style>
+</head>
+
+<body>
+<table border="0" width="100%" id="title">
+	<tr>
+		<td>
+		<h2>jAddressBook Home Page</h2>
+		<p><font size="2">aka Address Book, Contacts, Password management</font></td>
+		<td valign="top" bgcolor="#EDF4FE">
+   		  <form method="POST" action="http://jaddressbook.knitknot.info/addressbook/ab/Login" name="login" enctype="multipart/form-data">
+    		  Login <input name="name" autocomplete="off" size="10">
+    		  Password <input type="password" name="password" size="8" ONKEYDOWN="return handleEnterSubmission(this, event)">
+            			<label>SSL<input type=checkbox value=ssl name="ssl"></label>&nbsp;<a style="cursor: pointer" onclick="checkLogin(document.login)">[go]</a>
+              <input disabled type="hidden" name="submit.x" value="1">
+				<img src="/addressbook/image/key.png" alt="lock" onclick="document.getElementById('secret').style.visibility='visible'">
+				<div id="secret" style="visibility:hidden"><input type="file" name="skey"></div></form>
+		<div id="msg"></div>
+         <p><a href="http://jaddressbook.knitknot.info/addressbook/ab/Webstart">Start Java client</a> No account yet? <a href="http://jaddressbook.knitknot.info/addressbook/ab/Registry">Sign up</a> </p>
+                <iframe name="submittar" id="submittar" height="0px" width="0px" style="width:0px;height:0px;border:0px"></iframe>
+         </td>
+	</tr>
+</table>
+<p align="right"><font color="#800000"><a href="#news"><font color="#800080">New! </font></a>Mobile browsers support</font></p>
+<h3>Personal records management system</h3>
+    <p>
+        Online Addressbook</p>
+<h4>What is it?</h4>
+<p>Sticky notes, block notes, address books, business card holders and many 
+other electronic or paper folders currently used for keeping and managing personal 
+records. They are contact information, useful notes, to do lists, URLs, thoughts, accounts 
+details, insurance information, 
+passwords, shopping lists, warranties, businesses locations and addresses, and many other 
+records like (assets & inventory, budgets, chores, creative corner, diet, financial 
+records,
+ fitness, goals & plans, journal, media library, medical records, projects, recipes, 
+ restaurants, services & maintenance, special moments, vehicle maintenance,
+ veterinarian records, wine cellar) helping us do not get lost.</p>
+<h4>Where is a problem? </h4>
+<p>Quickly to find a piece information when it needed. By to find means not only 
+knowledge where records are stored, but a possibility to access these records. 
+Carrying all records in a briefcase looks ridiculous nowadays. However storing 
+everything in a centralized location accessible over Net is not wise either. So 
+solution about storage is something in a middle as having multiple copies of 
+personal records with a personal certificate protected centralized storage and a 
+rich set of different devices synchronization features. Of course, most of 
+storages have to be accessible using a cell phone or PDA.</p>
+<h4>Sort, do not search!</h4>
+<p>Google is trying to sell us pushing using a search instead of good record 
+organizations. Forgot a right keyword and you got lost, a search won't help you, 
+say more result of any search will include a lot of garbage you have to sort 
+anyway. How will you know which record with address of your friend is an actual 
+and which is outdated? How you will separate a business partner and a girl 
+friend contacts having similar names? You won't be surprised that all Google's 
+system implementations are based on sorting, so if they would used search, then 
+you wouldn't ever get result. So, how to sort personal records? It's quite easy, 
+every Google's engineer will say you - use a tree. </p>
+    <h4>Why not tagging?</h4>
+    <p>
+        Recently I spoke with some member of PayPal team. He agreed that search isn't solution,
+        however he valued more tagging. Okay, I told him, let's consider a tree as tagging
+        model, node name is a tag and all under it just tagged items. Can jAddressBook fit
+        in this model? Currently not, however allowance of sharing items between nodes will
+        carry it.</p>
+<h4>I guess you have a solution?</h4>
+<p>Sort of.&nbsp;</p>
+<ol>
+  <li>Java. Can be run virtually on any computer including smart phones</li>
+  <li>Standalone and pure web unified UI</li>
+	<li>Powerful tree based organization of personal records</li>
+	<li>No limitation on type and content of stored information</li>
+  <li>Local and global address information storage</li>
+  <li>WebServices based synchronization</li>
+  <li>Working off and on line</li>
+  <li>Alerting and auto contacts/locations update</li>
+	<li>Personal schedules with collaboration capabilities</li>
+	<li>Alerting with escalation feature</li>
+	<li>A way to find friends and partner on common stored information</li>
+	<li>Possible P2P networking instead of centralized storage</li>
+</ol>
+<h3>Okay, I'm almost sold, tell me more</h3>
+<p>jAddressBook will give you a possibility to manage and organize your personal 
+records in a simple, easy accessible way. Some type of stored information 
+already have pre-filled formats, like contact information including storing 
+telephones, e-mails, addresses (with direct connection to map), bookmarks, chat 
+ids, pictures, passwords, account and rich text format personal notes. You will 
+organize all information in a way more comfortable for you. Of course you will 
+guide your structures and never will get lost. And of course you can search but 
+I'm sure you never will do it again. So, what are you waiting for? Try
+<a href="http://jaddressbook.knitknot.info/addressbook/ab/Registry">a demo version</a>, it's
+secure, free, and ads free!</p>
+<h4>Why no competition?</h4>
+<p>Check out <a href="http://www.homeconvenience.com/">this site</a>. It's nice. 
+In addition to personal records it provides a calendar and collaboration on 
+level of a family. Another competitor is <a href="http://www.zexer.com">here</a>, however
+    their business model is unclear and less features.</p>
+<h3>More About a Solutions</h3>
+<p>Distributed servers network with replication, web and native clients for 
+electronic devices including nice printing capabilities looks for me as a 
+solution I'm working on. Do you mind to join my team? No? In this case just wait 
+or try beta version of jAddressBook.</p>
+<h3>Tip of the day</h3>
+<blockquote>
+	<ol>
+		<li>Do you know that you can use web started Swing jAddressBook client to upload 
+your contacts in XML or CSV format exported from Outlook? Select 
+File/Import&gt;Other Address Book... and select <i>Outlook CSV</i>. It work with 
+		gmail exported contacts too and probably will work with CSV exports from 
+		many others address book programs.</li>
+		<li>Do you know that you can create own account without a mail server 
+		and confirmation e-mail? If you would like to run only personal address 
+		book locally, then you can activate your account editing XML file under 
+		your login name in $jAddressBook_home/users directory. Open the file in 
+		any text editor and add line:<br>
+		<i>&lt;entry key=&quot;active&quot;&gt;true&lt;/entry&gt;</i></li>
+	</ol>
+</blockquote>
+<h3>
+    Do you know</h3>
+    <p>
+        Why jAddressBook is so powerful and can compete with other similar products? An
+        answer is quite simple, jAddressBook doesn't use any fixed schema for storing data.
+        it means that you can put any information in contact entries and organize them in
+        node items of your data tree.</p>
+    <h3>
+        Help wanted</h3>
+<p>Looking for young individuals, smart, and energetic who know web design and 
+JavaScript or&nbsp;willing to learn it in process of work. Requirements for more 
+experienced candidates are:</p>
+<ul>
+	<li>5+ years of complex software engineering experience in progressively 
+	challenging roles </li>
+	<li>3+ years coding experience in Java, including proven skill sets in JSP/Servlet/J2EE 
+	and JDBC, plus some experience with Java Swing, CORBA/RMI, SOAP/Web 
+	services, Springs/JSF, and JNLP/Web Start</li>
+	<li>Deep understanding and practical real-world experience with high 
+	volume, distributed J2EE and web/browser technologies including Ajax</li>
+	<li>Experience with OO analysis/design, UML, Knowledge of software 
+	methodologies and best practices </li>
+	<li>Be proficient in Java security and cryptography, have base understanding 
+	of cipher algorithms, and data protections methodology</li>
+	<li>Project Experience with XML parsing, presentation and messaging </li>
+	<li>Demonstrated ability to deliver through entire lifecycles </li>
+	<li>Passion for delivering high quality products </li>
+	<li>Driven to achieve a high level of client and customer satisfaction </li>
+	<li>Strong verbal, written, and interpersonal communication skills with both 
+	technical and non-technical audiences </li>
+	<li>Experience working with cross-functional teams from multiple departments
+	</li>
+	<li>Experience designing and managing large-scale architectures, distributed 
+	systems with emphasis on performance and scalability</li>
+	<li>Systematic thinking skills. Able to deal with novel problems from 
+	different perspectives and from different levels of abstraction </li>
+	<li>Ability to analyze and understand complex workflows and processes, and 
+	develop innovative approaches to streamlining and automating them</li>
+	<li>Experience with complex systems. Able to decompose and solve problems at 
+	the appropriate level within the system, keeping in mind the higher-level 
+	structures and their requirements and dependencies with adjoining subsystems</li>
+</ul>
+<p>Although requirements look a bit tough to match, do&nbsp; not be shy and send 
+your resume for consideration to
+<a href="mailto:jAddressBook.gmail.com?subject=Attn: HR department">jAddressBook 
+HR</a>. Any format including MPEG4 is accepted.</p>
+<h3>Download</h3>
+<p>
+    <a href="http://sourceforge.net/project/showfiles.php?group_id=36187">Sourceforge.net</a></p>
+<p> For development 
+from sources, 
+download <a href="https://github.com/drogatkin/7Bee">7Bee Java build</a> tool. </p>
+<h3>How to build?</h3>
+<p><a href="https://github.com/drogatkin/7Bee/blob/master/doc/index-bee.html"><img src="7bee_logo_avatar.png" border=0></a></p>
+<p>Nothing can be easier, when you use 7Bee. Have you downloaded and installed it yet? You 
+will need one more download, unless you are Tomcat addicted.
+<a href="http://tjws.sourceforge.net/#download">
+Tiny Java J2EE container</a>, that's it. </p>
+<ol>
+	<li>Get jAddressBook CVS tree.</li>
+	<li>Edit env.xml, you need to modify JAVA_HOME to currently used JDK, not 
+	less than 5.0, SERVLET_HOME where servlet class library, and TJWS_HOME for 
+	Tiny Java J2EE container. If you are going to use some 3rd party J2EE 
+	container, you can leave this property empty.</li>
+	<li>Type <kbd>bee</kbd> to run Java UI, <kbd>bee war</kbd> to build a web deployment package, or 
+	run web UI version typing <kbd>bee runw</kbd> (TJWS required).</li>
+</ol>
+<p>Note that after deployment war file, you may need to edit WEB-INF/config/jaddressbook.properties. 
+URL pattern to access web UI will be <a href="http://host/addressbook/">
+http://yourhost/addressbook/</a> unless you edited web.xml.</p>
+<p>jAddressBook is powered by fullstack Aldan3/WebBee framework, read more <a href="http://webbee.sf.net">here</a>.</p>
+<h3>Web UI</h3>
+<p>Try web UI <a href="http://jaddressbook.knitknot.info/addressbook/">here</a>.</p>
+<h3>Web storage access from Java client</h3>
+<p>Open options dialog and set host address as on a picture below.&nbsp; Set 
+name and password to values you used for registration. A https based version is 
+coming, so do not store any sensitive contacts for awhile.</p>
+<p><img src="ab_online_access.jpg" /></p>
+<h3>Screen shot</h3>
+<p><img border="0" src="/addressbook.jpg" width="628" height="467"></p>
+<h2>Acknowledgments</h2>
+<p>This project includes a lot of modern stuff I didn't use before as extensive 
+servlet API features and Ajax. I couldn't succeed in implementation without help 
+of the following people:</p>
+<ul>
+	<li>David O'Meara </li>
+	<li>Eric Pascarello <br>
+&nbsp;</li>
+</ul>
+<table cellSpacing="0" cellPadding="2" width="100%" align="center" border="0" id="table1">
+	<tr vAlign="top">
+		<td style="font-family: arial,sans-serif">
+		<div class="content">
+			<h2>Some feature highlights...</h2>
+		</div>
+			<h4>
+			<b>Passwords management</b></h4>
+		<p>You can secure manage passwords to your
+		online accounts. jAddressBook transfers passwords to page in an encrypted 
+		form, so a browser, proxy or some other caching mechanism can't show your passwords 
+		in clear text. You have ability to see your passwords in clear text 
+		provided by Ajax calls. Since these calls use HTTPS, your password can't 
+		be discovered by sniffers and other traffic analyzers. Version 1.4
+            adds even more security, you can use your personal key to get password sensitive
+            information encrypted on server side, so nobody can get your passwords after except
+            you as long as you do not lose your secret key.</p>
+		<h4>Fully managed folders hierarchy</h4>
+		<p>Now you can create unlimited depth of folders hierarchy to store 
+		contacts and other information. For example you can store information 
+		about shopping items, business projects and so on. You can move folders 
+		along hierarchy and copy items from one folder to another.</p>
+            <h4>Getting maps from address items</h4>
+		<p>Now you can get Yahoo map of addresses stored with a contact.</p>
+           <a name="news"></a> <h4>Build media catalogs</h4>
+		<p>Share list of your audio albums, movies, home videos and so on with 
+		your friends and family.</p>
+		<h2>New features I'm working on</h2>
+		<h3>Certificate management</h3>
+		<p>Create or add certificates used for encryption different parts of 
+		your stored information. You chose to do not store certificate on server 
+		side, so it will provide you unbeatable level of security. You can 
+		safely keep information about your girlfriends, credit card numbers, or spy contacts. 
+		Your purse get lost or stolen, no worry. Get all bank telephone and CC 
+		numbers from one page and cancel all your cards. Lost your flush drive 
+		with certificate? No worry, it protected by password only one password 
+		you have to memorize. Keep a spare certificate in a deposit box of your 
+		bank for further protection.</p>
+		<h3>jAddressBook mobile</h3>Access all your contacts from a browser of you 
+		mobile phone, and make calls. It's free (but yes, your 
+		wireless plan could still charge you).<h3>Group based contact 
+		information sharing with auto update feature</h3>
+		<p>It's most exciting feature of jAddressBook. Now all your friends who 
+		used jAddtresBook can share group information and auto-update contact 
+		information.<p>Auto login to account from password management links<p>
+		Free yourself from remembering and entering password. Use pseudo URL 
+		variable to be filled with your account information and get login in 
+		just by one click. (Note one click login is patented by the author, 
+		so do not spend time on patent research here.)</p>
+		<h3>Send e-mail using specific e-mail program</h3>
+		<p>You can select which e-mail program will be used for compose new 
+		e-mail message. It can be any web based e-mail client as MSN/Hotmail, 
+		Yahoo, Mochamail, or Gmail.</p>
+		<h3>Share iPod play lists</h3>
+		<p>This feature allows to connect jAddressBook to your iPod and upload 
+		play list information in an address book item. Now make it sharable with 
+		automatic purchasing link to iTunes or another online music store.</p>
+		<h3> Chatting with jAddressBook user or any Internet user directly from
+        your browser</h3>
+        <p>
+        <a href="http://webbee.sf.net">ChatHouse</a> integration gives a possibility to chat with any Internet user
+        directly from your browser, no any additional chatting program
+        installation requiring. Send invitation for chat directly using
+        jAddressBook shared area or in e-mail. Note ChatHouse is the first 
+		program started using server push technology in 1999. Now this 
+		technology got name <i>comet</i> and widely used by other companies.</p>
+        <h3>
+		Sharing interesting book info, gadgets info and any other goodies</h3>
+		<p>You can share information with purchasing link to books, electronics, 
+		clothes and many many other goodies with cheapest prices and reliable 
+		merchants.</p>
+		</td>
+	</tr>
+</table>
+<h3>Contact</h3>
+<p>Dmitriy @ <a href="mailto:jAddressBook@gmail.com">jAddressBook</a></p>
+
+</body>
+</html>

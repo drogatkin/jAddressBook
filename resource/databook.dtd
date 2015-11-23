@@ -1,0 +1,204 @@
+<!--
+   Definition of personal information
+ * Copyright (C) 2000-2006 Dmitriy Rogatkin.  All rights reserved.
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ * 1. Redistributions of source code must retain the above copyright
+ *    notice, this list of conditions and the following disclaimer.
+ * 2. Redistributions in binary form must reproduce the above copyright
+ *    notice, this list of conditions and the following disclaimer in the
+ *    documentation and/or other materials provided with the distribution.
+ *  THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
+ *  ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ *  IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ *  ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE FOR
+ *  ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ *  (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ *  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ *  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ *  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ *  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ * $Id: databook.dtd,v 1.5 2007/01/05 04:47:51 rogatkin Exp $
+-->
+
+  <!ELEMENT DATABOOK (FOLDER*)>
+  <!ATTLIST DATABOOK
+     OWNER     CDATA    #IMPLIED
+     CREATED   CDATA    #IMPLIED
+     MODIFIED  CDATA    #IMPLIED
+     ENCRYPTED CDATA    #IMPLIED     
+     SHARING   (PRIVATE | PUBLIC | RESTRICTED) #IMPLIED
+     PGPKEY    CDATA    #IMPLIED
+  >
+  
+  <!ELEMENT FOLDER (PERSON* | COOKIE* | BOOKMARK* | FOLDER* | ACCOUNT*)>
+  <!ATTLIST FOLDER
+     NAME      CDATA     #REQUIRED
+     COMMENT   CDATA     #IMPLIED
+     TYPE      CDATA     #IMPLIED 
+  >
+  
+  <!-- Add info about connected people as spouse, children, parents, friends, etc.
+  -->
+  
+  <!ELEMENT PERSON (NAME, TITLE*, DOB?, PHONE*, ADDRESS*, EMAIL*, LINK*, CHAT*, PGP*, EVENT*, ATTRIBUTE*, COMMENT*, PICTURE*, ACCOUNT*)>
+
+  <!ATTLIST PERSON
+     HASH       CDATA     #IMPLIED
+     CREATEDON  CDATA     #IMPLIED
+     SHAREDBY   CDATA     #IMPLIED
+     GENDER     (MALE|FEMALE|TRANS|OTHER)    #IMPLIED
+  >
+
+  <!ELEMENT NAME (LAST, MAIDEN?, FIRST?, MIDDLE?, MAJOR?, SALUT?, NICK*)>
+
+  <!-- could be attributes in some implementations
+  -->
+  <!ELEMENT LAST (#PCDATA)>
+
+  <!ELEMENT MAIDEN (#PCDATA)>
+
+  <!ELEMENT FIRST (#PCDATA)>
+
+  <!ELEMENT MIDDLE (#PCDATA)>
+
+  <!ELEMENT MAJOR  (#PCDATA)>
+
+  <!ELEMENT SALUT  (#PCDATA)>
+
+  <!ELEMENT NICK (#PCDATA)>
+  <!ATTLIST NICK
+      ORDER  CDATA   #IMPLIED
+  >
+
+  <!ELEMENT PHONE (#PCDATA)>
+  <!ATTLIST PHONE
+      ORDER     CDATA                #IMPLIED
+      TYPE      (HOME|PRIV|BUS|FAX|ISDN)  #IMPLIED
+      SUB_TYPE  (LAND|MOBILE|CELL|NET|VIDEO) #IMPLIED
+      FORMAT    (USA|INTL)           #IMPLIED
+      PREFERABLE (true|false)        "false"
+      COMMENT   CDATA                #IMPLIED
+  >
+
+  <!ELEMENT ADDRESS (TITLE?, STREET, CITY, STATE, COUNTRY?, ZIP?)>
+  <!ATTLIST ADDRESS
+      ORDER   CDATA           #IMPLIED
+      TYPE  (HOME|BUS|OTHER)  #IMPLIED
+      COMMENT   CDATA         #IMPLIED
+      PREFERABLE (true|false)        "false"
+  >
+
+  <!ELEMENT TITLE  (#PCDATA)>
+  <!ATTLIST TITLE
+     ORDER   CDATA   #IMPLIED
+  >
+
+  <!ELEMENT STREET  (#PCDATA)>
+
+  <!ELEMENT CITY  (#PCDATA)>
+
+  <!ELEMENT STATE  (#PCDATA)>
+
+  <!ELEMENT COUNTRY  (#PCDATA)>
+
+  <!ELEMENT ZIP  (#PCDATA)>
+
+  <!ELEMENT EMAIL  (#PCDATA)>
+  <!ATTLIST EMAIL 
+      ORDER   CDATA         #IMPLIED
+      TYPE  (HOME|BUS|SPAM|LIST|OTHER)  #IMPLIED
+      COMMENT   CDATA       #IMPLIED
+      PREFERABLE (true|false)        "false"
+  >
+
+  <!ELEMENT ATTRIBUTE  (PROPERTY*)>
+  <!ATTLIST ATTRIBUTE
+      NAME    CDATA           #REQUIRED
+      ORDER   CDATA           #IMPLIED
+      MEANING  CDATA          #IMPLIED
+      COMMENT   CDATA         #IMPLIED
+  >
+
+  <!ELEMENT PROPERTY (#PCDATA)>
+  <!ATTLIST PROPERTY
+      NAME    CDATA           #REQUIRED
+      ORDER   CDATA           #IMPLIED
+      MEANING  CDATA          #IMPLIED
+      COMMENT   CDATA         #IMPLIED
+  >
+     
+
+  <!ELEMENT LINK  (#PCDATA)>
+  <!ATTLIST LINK
+      ORDER   CDATA           #IMPLIED
+      TYPE  (HOME|BUS|OTHER)  #IMPLIED
+      COMMENT   CDATA         #IMPLIED
+  >
+
+  <!ELEMENT CHAT  (#PCDATA)>
+  <!ATTLIST CHAT 
+      ORDER     CDATA  #IMPLIED
+      SERVER    CDATA  #IMPLIED
+      PROTOCOL  (ICQ|IRC)  #IMPLIED
+      ROOM      CDATA  #IMPLIED
+      COMMENT   CDATA  #IMPLIED
+      PREFERABLE (true|false)        "false"
+  >
+
+  <!ELEMENT PGP (#PCDATA)>
+  <!ATTLIST PGP
+     ORDER     CDATA  #IMPLIED
+     TYPE  (HOME|BUS|OTHER)  #IMPLIED
+     COMMENT   CDATA  #IMPLIED
+  >
+
+  <!ELEMENT DOB EMPTY>
+  <!ATTLIST DOB
+     YEAR   CDATA  #REQUIRED
+     MONTH  CDATA  #REQUIRED
+     DAY    CDATA  #REQUIRED
+  >
+
+  <!ELEMENT EVENT EMPTY>
+  <!ATTLIST EVENT
+     TYPE     (MARRIAGE|GRADUATION|OTHER)  #REQUIRED
+     YEAR     CDATA  #REQUIRED
+     MONTH    CDATA  #REQUIRED
+     DAY      CDATA  #REQUIRED
+     COMMENT  CDATA  #IMPLIED
+  >
+
+  <!ELEMENT COMMENT (#PCDATA)>
+  <!ATTLIST COMMENT
+     ORDER   CDATA   #IMPLIED
+     COMMENT  CDATA  #IMPLIED
+  >
+
+  <!ELEMENT COOKIE   EMPTY>
+
+  <!ELEMENT BOOKMARK (LINK)>
+  <!ATTLIST BOOKMARK
+     VISITED   CDATA   #IMPLIED
+     CONTENT_LENGTH CDATA   #IMPLIED
+  >
+
+  <!ELEMENT PICTURE (#PCDATA)>
+  <!ATTLIST PICTURE
+      TYPE  CDATA  #IMPLIED
+      COMMENT   CDATA         #IMPLIED
+  >
+
+  <!ELEMENT ACCOUNT (LNAME, ANAME?, PASSWORD?, (LINK?|TYPE?), COMMENT?)>
+
+  <!ELEMENT LNAME (#PCDATA)>
+
+  <!ELEMENT ANAME (#PCDATA)>
+
+  <!ELEMENT TYPE (#PCDATA)>
+
+  <!ELEMENT PASSWORD (#PCDATA)>
+  <!ATTLIST PASSWORD
+      CIPHER  CDATA  #IMPLIED
+  >

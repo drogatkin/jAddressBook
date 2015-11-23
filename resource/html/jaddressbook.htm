@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>jAddressBook</title>
+<style>
+<!--
+input  { padding:0; font-family: Arial; font-size: 8pt; background-color: #FFFFFF; border-left-width:1px; border-right-style:solid; border-right-width:1px; border-top-width:1px; border-bottom-width:1px  }
+.warn        { font-family: Arial Narrow; font-size: 8pt; color: #CC0000; 
+               border: 1px solid #808080; background-color: #C0C0C0 }
+body,p,li,div,td    { font-family: Tahoma; font-size: 9pt }
+h4           { font-family: Tahoma; color: #808080; font-size: 11pt }
+h2           { font-family: Tahoma; color: #A0A0A0; font-size: 14pt }
+-->
+</style>
+
+<script src="/addressbook/ajaxhelper.js" language="Javascript"></script>
+
+<script>
+  function checkLogin(form) {
+    //alert(formValues2String(form));
+    //makeGenericAjaxCall("ab/Login/ajax/check?name="+escape(form.name.value)+'&password='+escape(form.password.value),
+    makeIFrameAjaxSubmit("ab/Login/ajax/check", form, "",
+   //  null, true, 
+      function(html) {
+          if (html == "Ok") {
+             //var input = document.createElement('INPUT');
+             //input.type = 'hidden';
+             //input.name = 'submit';
+             //input.value = '1';
+             //form.appendChild(input);
+             // TODO: change Ajax call to do actual login if everything OK, so
+             // instead of double submit just load front page
+             // problem is how to extract cookie and set it to main document
+             // maybe Ajax call has to return cookie instead of OK?
+             //window.location = 'ab/Abfrontview';
+             //document.location = 'ab/Abfrontview';
+             form.elements['submit.x'].disabled = false;
+             form.submit();
+          } else {
+        	  if (document.all)
+                 document.all.msg.innerHTML = '<font color=red>' + html + '</font>';
+              else
+            	  document.getElementById('msg').innerHTML = '<font color=red>' + html + '</font>';
+          }
+      }, null, 'submittar');
+  }
+  function handleEnterSubmission (field, evt) {
+     var keyCode = evt.which ? evt.which : evt.keyCode;
+     if (keyCode == 13) {
+       checkLogin(field.form);
+       return false;
+     }
+     else 
+       return true;
+  }
+
+</script> 
+</head>
+<body>
+
+<h2>Web (mobile) Interfaced jAddressBook</h2>
+<table style="width:80%;margin:auto" id="table1">
+	<tr>
+		<td colspan="2">
+		<h4>What, Why, Where?</h4>
+		<p>An address book is an example of most generic type of personal records management system.
+		jAddressBook  extends a little bit the personal record management system making it more versatile. 
+		 It keeps tack of 
+		 <ul>
+		  <li>Contact name</li>
+		<li>telephone numbers</li> 
+		<li>e-mails</li>
+		<li>addresses</li>
+		<li>bookmarks</li>
+		<li>passwords to network accounts</li>
+		<li>social media site friends</li>
+		<li>notes including attachments</li>
+		<li>and more</li>
+		</ul>
+		
+		<p>
+		jAddressbook also partially resolves the following problems</p>
+		<ol>
+			<li>An application independence</li>
+			<li>OS independence</li>
+			<li>High availability</li>
+			<li>Native and web UI including mobile specific</li>
+			<li>Auto update contact information</li>
+			<li>High security</li>
+			<li>Sharing certain details of contact information</li>
+			<li>Publishing area of expertise, interests and so on for extending network</li>
+			<li>Direct connection with e-mail programs</li>
+		
+			<li>Organize all your vehicles documents (insurance, warranties, service &amp; maintenance)
+            </li>
+			<li>Itemize all your credit cards (card numbers, balance, toll-free 
+			numbers)</li>
+			<li>Itemize your insurance policies (home, medical, dental, vision, 
+			etc.)</li>
+			<li>Organize your financial documents (accounts, savings, bonds, 
+			stocks, CD's, 401K)</li>
+			<li>Organize all your essential household information (deed, fuse 
+			box location,&nbsp; power shut-off, sprinkler shut-off, water 
+			shut-off, purchase receipts)</li>
+			<li>Prioritize all your legal documents (divorce, child custody, 
+			leases, Last Will and Testament, Living Will, military documents, 
+			passports, Power of Attorney, real estate deeds, trusts)</li>
+			<li>Organize all your educational information (transcripts, 
+			financial aid documents, correspondence)</li>
+			<li>Itemize your warranties (receipts, manuals, maintenance 
+			contracts)</li>
+		</ol>
+		</td>
+		<td valign="top" bgcolor="#EDF4FE" width="30%">
+		<form method="POST" action="ab/Login" name="login" enctype="multipart/form-data">
+                   <table border="0" cellpadding="6">
+                     <tr>
+                       <td colspan="2">
+   			             <div>Login<br><input autofocus="autofocus" name="name" autocomplete="off" size="10"></div>
+		               </td>
+                     </tr>
+                     <tr>
+                       <td style="height: 52px">
+                    		<div>Password<br><input size="8" type="password" name="password" ONKEYDOWN="return handleEnterSubmission(this, event)"></div>
+                       </td>
+                       <td valign="bottom" style="height: 52px">
+             		   <div style="cursor: pointer" onclick="checkLogin(document.login)">[go]</div>
+             		   <img src="/addressbook/image/key.png" alt="lock" onclick="document.getElementById('secret').style.visibility='visible'">
+			               <input disabled type="hidden" name="submit.x" value="1">
+                       </td>
+                      </tr>
+                      <tr>
+                        <td  colspan=2><div id="secret" style="visibility:hidden"><input name="skey" type="file" /></div></td>
+                      </tr>
+                   </table>
+		</form>
+		<div id="msg"></div>
+                <p>No account yet? <a href="ab/Registry">Sign up</a>
+                <p><a href="ab/Webstart">Start Java client</a></p>
+                <p>Visit <a href="http://jaddressbook.sourceforge.net" target="_blank">jAddressBook Home</a> at SourceForge.Net</p>
+                <div><iframe name="submittar" id="submittar" height="0px" width="0px" style="width:0px;height:0px;border:0px"></iframe></div></td>
+	</tr>
+	<tr>
+		<td colspan="3">
+		<h4>More about the program</h4>
+		<p>It can run literally anywhere, I have instances of it running on:
+		<ul>
+		<li>Corporative cloud</li>
+		<li>Windows laptop</li>
+		<li>Linux desktop</li>
+		<li>Raspberry Pi server</li>
+		<li>Android phone</li>
+		<li>Blackberry PlayBook</li>
+		<li>Kindle Fire</li>
+		</ul> </p>
+		<h4>Participating</h4>
+		<p>To participate in this project no any special skills or background 
+		required. However to be involved in particular development some 
+		knowledge of Java and web design can require. You will need also to 
+		download <a href="https://github.com/drogatkin/7Bee">a great 
+		building tool 7bee</a>.</td>
+    </tr>
+    <tr>
+		<td colspan="3">
+		<h4>Developer notes</h4>
+		<p>Currently no version control publicity available for the project. The is a plan to 
+		create one under <a href="https://github.com"></a> umbrella
+		.
+		</p>
+		</td>
+   </tr>
+   <tr>
+	<td colspan="3">
+		<h4>Related projects</h4>
+		<p>Here is a list of other projects which provide a similar to 
+		jAddressBook capabilities. The list was found using FineSearch. </p>
+                <ol>
+                <li><a href="http://passwordsafe.sourceforge.net/index.html">Password Safe</a>
+                <li><a href="http://www.homeconvenience.com/">Home onvenience</a>
+                </ol>
+        </td>
+   </tr> 
+   <tr>
+		<td colspan="3">
+		<h4>Acknowledgment</h4>
+		<p>I highly appreciated help and support of many people.</p>
+		</td>
+   </tr>
+</table>
+</body>
+</html>

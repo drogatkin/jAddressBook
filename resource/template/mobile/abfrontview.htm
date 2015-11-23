@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+@%'mobile/head.htm'@
+<script>
+   function editContact(name, hash) {
+	   if (typeof(name)  == 'undefined' )
+		   window.location='Contactview?folder=@:nodeid@';
+	   else
+	   	   window.location='Contactview?name='+encodeURIComponent(name)+'&hash='+hash+'&folder=@:nodeid@';
+   }
+   
+   function deleteSelected() {
+	   makeGenericAjaxCall('Abfrontview/ajax/Delete', 'delete=1&'+formValues2String(document.forms.contacts), true, 
+			   function(res) {
+		   window.location='Abfrontview?nodeid=@:nodeid@';
+	   });    
+   }
+   
+   function send2BT() {
+	   
+   }
+</script>
+<table width="100%">
+   <tr><td><div><a href="Foldernavigator?">&lt;-@nodeid@</a></div></td><td><a href="javascript:void(0)" onclick="editContact()"><img src="@.contextpath@/image/New.gif" alt="@commonlabel.new@"></img></a>
+    &nbsp;&nbsp;<a href="javascript:void(0)" onclick="deleteSelected()">@commonlabel.delete@</a>
+    &nbsp;&nbsp;<a href="javascript:void(0)" onclick="send2BT()">@label.sendto@</a>
+    <select><option>@label.bluetooth@</option></select></td></tr>   
+</table>
+<form name="contacts">
+<table width="100%">
+@entries(
+  <tr><td rowspan="2"><input type="checkbox" name="contact" value="@name.hashCode*()*@_@name.getId*()*@"></input></td>
+    <td class="drilled" colspan="2" onclick="@oper@('@^name.getId*()*@','@name.hashCode*()*@')">@name@</td></tr>
+   <tr style="display:block;border-bottom:1px solid #ccc"> 
+    <td><a href="mailto:@email@">@email@</a></td><td> <a href="tel:@tphone@">@tphone@</a>
+  </td></tr>
+)@
+</table>
+ <input type="hidden" name="folder" value="@nodeid@"></input>
+</form>
+
+@%'mobile/foot.htm'@
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+@%'mobile/head.htm'@
+<script>
+ function createFolder() {
+ }
+ </script>
+<table><tr>
+    <td><div><a href="Foldernavigator">@addressbook.VersionConstant.PROGRAMNAME@</a></div></td>
+    <td><a href="javascript:void(0)" onclick="createFolder()">@commonlabel.new@</a></td>
+  </tr></table>
+
+<div class="button-container hovers">
+<table width="100%">
+@folder(
+  <tr>
+    <td>
+       <a href="Abfrontview?nodeid=@:element@" class="anchor button">@element@</a>
+     </td>
+    <td>
+       <a href="Foldernavigator?nodeid=@:element@" class="anchor button">&gt;</a>
+    </td>
+  </tr>
+)@
+</table>
+</div>
+@%'mobile/foot.htm'@
+</html>

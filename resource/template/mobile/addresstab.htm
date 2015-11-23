@@ -1,0 +1,43 @@
+<div>
+<div id="title">@label.title@<input type="text" id="title" name="title" value="@contact.getTitle*()*@"></div>
+<div id="dob">@label.dob@ <input type="text" name="dob" size="10" value="@contact.getDOB*()*?Dlabel.dobformat@">@label.dobformat@</div>
+</div>
+<div style="text-align:right" onclick="newAddr()">@commonlabel.new@ @label.address@</div>
+<table name="add" id="addr">
+  <tr>
+  <th>X</th>
+  <th>@label.name@</th>
+     <th>@label.address@</th>
+     <th>@commonlabel.map@</th>
+     </tr>
+   @address(<tr> 
+   <td><input type="checkbox" id="" /></td>
+   <td >@element.getDescription*()*@</td>
+   <td onclick="editAddr('@^element.getDescription*()*@', '@^element.getFormated*()*@')"><pre>@element.getFormated*()*@</pre></td>
+   <td><a target="_blank" href="http://maps.yahoo.com/maps_result?addr=@:element.street@&csz=@:element.city@,@element.state@+@element.zip@&country=us">@commonlabel.map@</a></td>
+   </tr>)@ 
+</table>
+
+<div id="edit_addr" class="edit_box" style="display:none">
+  <div class="close_corn" onclick="closeEdit()">@commonlabel.close@</div>
+  <div>@label.description@<br/>
+  <input type="text" name="addressdescription" value=""></div>
+  <div>@label.description@<br/>
+  <textarea name="addressvalue"  rows="5" style="width:100%"></textarea></div>
+  <div onclick="document.contactview.submit.click()">@commonlabel.apply@</div>
+
+</div>
+
+<script>
+   function editAddr(d,a) {
+	   document.contactview.addressdescription.value=d;
+	   document.contactview.addressvalue.value=a;
+	   getElement('edit_addr').style.display='';
+   }
+   function newAddr() {
+	   editAddr('', 'Street\nCity, State Zip')
+   }
+   function closeEdit() {
+	   getElement('edit_addr').style.display='none';
+   }
+</script>

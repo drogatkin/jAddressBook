@@ -1,0 +1,53 @@
+<script>
+   function openForEdit(type,nick,email) {
+	   document.contactview.emaildescription.value = nick;
+	   document.contactview.emailvalue.value = email;
+	   document.contactview.emailoldvalue.value = email;
+	   document.contactview.emailtype.selectedIndex = getIndex(document.contactview.emailtype.options, type);
+	   getElement('email_edit').style.display = '';
+   }
+   function openForNew() {
+	   openForEdit('', '', '');
+   }
+   
+   function closeEdit() {
+	   getElement('email_edit').style.display = 'none';
+   }
+</script>
+<div style="text-align:right" onclick="openForNew()">@commonlabel.new@ @label.email@</div>
+<table name="email" id="email">
+<tr>
+  <th>&nbsp;</th>
+  <th>@label.default@</th>
+  <th>@label.type@</th>
+  <th>@label.nick@</th>
+  <th>@label.email@</th>
+  <th>&nbsp;</th>
+</tr>
+@email(
+<tr>
+  <td><input type="checkbox" name="emailmark"></td>
+  <td><input type="radio" name="emaildefault" value="@index@" @element.isPreferable*()*{@true(checked)@}@></td>
+  <td>@element.getType*()*@</td>
+  <td>@element.getDescription*()*@</td>
+  <!-- here is data duplication in parameters, right solution just mark a row with id and got from there --> 
+  <td onclick="openForEdit('@^element.getType*()*@', '@^element.getDescription*()*@', '@^element.getValue*()*@')">@element.getNormalized*()*@</td>  
+  <td><a href="mailto:@element.getNormalized*()*@">@label.go@</a></td>
+</tr>
+)@
+</table>
+
+<div id="email_edit" class="edit_box"  style="display:none;">
+   <div class="close_corn" onclick="closeEdit()">@commonlabel.close@</div>
+   <div>@label.type@</div>
+   <select name="emailtype">
+       @type(<option>@type@</option>)@
+    </select>
+   <div>@label.nick@</div>
+   <div><input type="text" name="emaildescription" value=""></div>
+   <div>@label.email@</div>
+   <div><input type="email" name="emailvalue" value=""></div>
+   <input type="hidden" name="emailoldvalue" >
+   
+   <div onclick="document.contactview.submit.click()">@commonlabel.apply@</div>
+</div>

@@ -1,0 +1,40 @@
+<div style="text-align:right" onclick="newLink()">@commonlabel.new@ @label.bookmark@</div>
+<table name="url" id="url">
+<tr>
+  <th>X</th>
+  <th>@label.description@</th>
+  <th>@label.url@</th>
+  <th>&nbsp;</th>
+</tr>
+@link(
+<tr>
+  <td><input type="checkbox" name="emailmark"></td>
+  <td>@element.getDescription*()*@</td>
+  <!-- here is data duplication in parameters, right solution just mark a row with id and got from there --> 
+  <td onclick="editLink('@^element.getDescription*()*@', '@^element.getValue*()*@')">@.element.getValue*()*@</td>  
+  <td><a target="_blank" href="@element.getNormalized*()*@">@commonlabel.go@</a></td>
+</tr>
+)@
+</table>
+
+<div id="link_edit" class="edit_box" style="display:none;width:90%">
+  <div class="close_corn" onclick="closeEdit()">@commonlabel.close@</div>
+  <div>@label.description@<br/>
+  <input type="text" name="linkdescription" value=""></div>
+  <div>@label.url@<br/>
+  <input type="text" name="linkvalue"/></div>
+  <div onclick="document.contactview.submit.click()">@commonlabel.apply@</div>
+</div>
+<script>
+    function newLink() {
+    	editLink('', 'http://');
+    }
+    function editLink(d,l) {
+    	document.contactview.linkdescription.value=d;
+    	document.contactview.linkvalue.value=l;
+    	getElement('link_edit').style.display='';
+    }
+    function closeEdit() {
+    	getElement('link_edit').style.display='none';
+    }
+</script>

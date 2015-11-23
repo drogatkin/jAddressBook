@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+@%'mobile/head.htm'@
+
+<div id="error">@error@</div>
+<div class="smallHeader">@label.header@</div>
+<form name="login" action="/addressbook@servletpath@/@servlet@" method="post">
+   
+<div>@label.name@</div>
+<div><input type="text" name="name" value="@name@" autocapitalize="off" autofocus="autofocus"/></div>
+<div>@label.pass@</div>
+<div><input type="password" name="password"/></div>
+<div><input type="submit" name="submit" value="@label.go@"></input></div>
+
+
+   
+</form>
+
+</html>

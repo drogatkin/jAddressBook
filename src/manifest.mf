@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Name: AddressBook.jar
+Main-Class: addressbook.AddressBookFrame
+Java-Bean: False
+Class-Path: aldan3.jar
+

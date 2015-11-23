@@ -1,0 +1,41 @@
+<!--  mobile canvas  -->
+<head>
+  <title>@title@</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no" />
+  <style type="text/css" media="screen">
+      .button-container { width: 50%; margin: 1em auto; }
+      .button-container a { border-bottom: 0; }
+      .button-container div a { color: rgb(35, 119, 187); text-decoration: none; }
+      .button-container a.anchor { color: rgb(35, 119, 187); }
+      .button-container .button { border: 1px solid; border-left-color: rgb(217, 217, 217); border-top-color: rgb(217, 217, 217); border-right-color: rgb(169, 169, 169); border-bottom-color: rgb(169, 169, 169); -webkit-border-radius: 4px;
+        -moz-border-radius: 4px; border-radius: 4px; text-align: center; display: block; background-color: rgb(242, 247, 250); padding: 0.5em; }
+        .button-container.hovers a:hover, .button-container2 a:focus { background-color: rgb(192, 222, 237); }
+
+     .edit_box {z-index:99;border:2px solid black; position:fixed; top:30px; left:20px; background-color:#eef; padding: 2px 1em 1em 1em}
+     .close_corn {text-align:right;color:#777} 
+     .drilled {color:#333; font-family:Sans-serif;font-weight:bold;}
+     div#error {font-weight:bold;color:#733}
+  </style>
+ <!--   <link rel="stylesheet" href="@contextpath@/styles.css" type="text/css" media="all"/>
+ -->
+ 
+ <script src="@contextpath@/ajaxhelper.js" language="Javascript"></script>
+ <script src="@contextpath@/common.js" language="Javascript"></script>
+ <script>
+   function getIndex(aggr, val) {
+	  // alert(val);
+	   for (var i=0; i<aggr.length; i++)
+		   if (aggr[i].value == val)
+			   return i;
+		   //else alert(aggr[i]+' '+i);
+	   return -1;
+   }
+   
+   function init() {
+	   if (typeof populateData == 'function')
+		   populateData();
+   }
+ </script>
+ 
+</head>
+<body onload="init()">

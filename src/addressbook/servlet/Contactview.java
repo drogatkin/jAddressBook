@@ -167,18 +167,16 @@ public class Contactview extends AddressBookProcessor {
 			List<Account> accounts = contact.getAccounts();
 			if (accounts != null && !mobile) {
 				Iterator<Account> ai = accounts.iterator();
-				int pi = 0;
 				while (ai.hasNext()) {
 					Account a = ai.next();
-					String ep = getStringParameterValue("enc" + ACCOUNT + pi + Account.PASSWORD, null, 0); // because numbered
+					String ep = getStringParameterValue("enc" + ACCOUNT + a.offset + Account.PASSWORD, null, 0); // because numbered
 					if (ep == null) {
-						log("Error: inconsistent form data, encrypted password not found for index "+pi+" for "+a, null);
+						log("Error: inconsistent form data, encrypted password not found for index "+a.offset+" for "+a, null);
 						//break;
 					}
 					if (" ".equals(ep) == false)
 						a.setPassword(getCipherOperations().decrypt(ep));
-					log("password "+ ep+" and "+( " ".equals(ep)?"":getCipherOperations().decrypt(ep)), null);
-					pi++;
+					//log("password "+ ep+" and "+( " ".equals(ep)?"":getCipherOperations().decrypt(ep)), null);
 				}
 			}
 		}
@@ -468,6 +466,7 @@ public class Contactview extends AddressBookProcessor {
 				}
 			try {
 				GenericAttribute ga = (GenericAttribute) c.newInstance(params);
+				ga.offset = i;
 				if (list != null && mobile) {
 // look in contacts if update needed
 					for(int il=0, n=list.size(); il< n; il++) {

@@ -42,6 +42,9 @@ abstract public class GenericAttribute implements XMLSaver {
 	
 	protected boolean preferable;
 	
+	// used for matching password
+    public int offset;
+	
 	protected GenericAttribute(String _value, String _description, String _type) {
 		value = assignWithDefault(_value);
 		description = assignWithDefault(_description);

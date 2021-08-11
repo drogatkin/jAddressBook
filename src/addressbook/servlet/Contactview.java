@@ -162,7 +162,7 @@ public class Contactview extends AddressBookProcessor {
 		if (encrypted == false) {
 			updateSet(contact, contact.getAccounts(), ACCOUNT, Account.class, new String[] { Account.DESCRIPTION,
 				Account.PASSWORD, Account.NAME, Account.LINK }, new Class[] { String.class, String.class,
-				String.class, String.class }, true);
+				String.class, String.class }, !mobile); // was true
 			// decrypt passwords
 			List<Account> accounts = contact.getAccounts();
 			if (accounts != null && !mobile) {

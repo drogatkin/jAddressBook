@@ -3,15 +3,15 @@
       "https://raw.githubusercontent.com/drogatkin/7Bee/master/bee.dtd" [
       <!ENTITY env SYSTEM "./env.xml">
       <!ENTITY build_directory "lib">
-      <!ENTITY deploy_directory "web">
       <!ENTITY target_name  "addressbook">
       <!ENTITY package  "addressbook">
       <!ENTITY project  "AddressBook">
       <!ENTITY projects_root "../">
+      <!ENTITY deploy_directory "&projects_root;TJWS2/1.x/webapps">
       ]>
 <!-- $Id: bee.xml,v 1.29 2015/10/24 06:35:28 cvs Exp $
    make file used for &project; and project
-   Copyright (c) 2015 Dmitriy Rogatkin    -->
+   Copyright (c) 2021 Dmitriy Rogatkin    -->
 
 <bee name="&project;" type="project">
   &env;

@@ -1,7 +1,7 @@
 <div style="text-align:right" onclick="newAccount()">@commonlabel.new@ @label.account@</div>
 <table>
   @account(
-    <tr><td><input type="checkbox"></td><td class="drilled" colspan="2" onclick="populateAccnt('@^element.getValue*()*@', '@element.getLink*()*@')">@element.getDescription*()*@</td><td rowspan="2"><a target="accnt_accss" href="@element.getLink*()*@">&gt;</a></td></tr>
+    <tr><td><input type="checkbox" name="account@index@mark"></td><td class="drilled" colspan="2" onclick="populateAccnt('@^element.getValue*()*@', '@element.getLink*()*@')">@element.getDescription*()*@</td><td rowspan="2"><a target="accnt_accss" href="@element.getLink*()*@">&gt;</a></td></tr>
     <tr><td colspan="3">@element.getName*()*@  @element.getValue*()*@</td></tr>
   )@
   
@@ -56,7 +56,7 @@
     	 });
      }
      
-     function populateAccnt(val, lnk) {
+     function populateAccnt(val, lnk) { // populate only one accnt 
     	 makeJSONAjaxCall('Contactview/ajax/getAccntInfo',
     			 'account='+encodeURIComponent(val)+'&accountlink='+encodeURIComponent(lnk)+
     			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@', true,

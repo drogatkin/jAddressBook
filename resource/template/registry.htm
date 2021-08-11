@@ -71,14 +71,7 @@
 <div class="label">@label.secret_q@<div class="form-field"><input type="text" name="secret_question" value="@secret_question@"></div></div>
 <div class="label">@label.secret_a@<div class="form-field"><input type="text" name="secret_answer" value="@secret_answer@"></div></div>
 </div>
-@BLOG{
-  @Pebble(
-   @mode{
-     @edit( <div class="label">@label.create_pebble_account@ <input type="checkbox" name="pebble" value="1"></div> )@
-     @(@label.future_pebble_account@)@
-   }@
-  )@
-}@
+
 <div id="imageverification">
 @mode{
 @edit()@
@@ -92,6 +85,14 @@
 </div>
 <input type="hidden" name="submit.x" value="1">
 </form>
+@BLOG{
+  @Pebble(
+   @mode{
+     @edit( <div class="label">@label.create_pebble_account@ <input type="checkbox" name="pebble" value="1"></div> )@
+     @(@label.future_pebble_account@)@
+   }@
+  )@
+}@
 @mode{
  @edit()@
  @(<p class="warn">This service is intended for demonstration purposes only. Use of this system to store sensitive data is prohibited.</p>)@

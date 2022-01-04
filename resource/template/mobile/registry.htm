@@ -12,12 +12,12 @@
   )@ 
   }@
   
-  <div class="label">@label.email@<br/><input type="text" name="email" value="@email@" /></div>
+  <div class="label">@label.email@<br/><input type="email" name="email" value="@email@" /></div>
   <div class="label">@label.pass@<br/><input type="password" name="password"></div>
   <div class="label">@label.passrep@<br/><input type="password" name="password2" onBlur="matchPwds()"></div>
   
   <div class="label">@label.language@<br/><input type="text" name="language" value="@language@"></div>
-  <div class="label">@label.timezone@<br/><input type="text" name="timezone" value="@timezone@"></div>
+  <div class="label">@label.timezone@<br/><input type="number" name="timezone" value="@timezone@"></div>
   <div id="imageverification">
 @mode{
 @edit()@

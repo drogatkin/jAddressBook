@@ -146,7 +146,7 @@ public class Access extends AddressBookProcessor {
 					String user = credentials.substring(0, p);
 					try {
 						UserProfile up = getUPOperations().getUser(user);
-						if (password.equals(up.getAttribute(UserProfile.PASSWORD)))
+						if (up.matchPassword(password))
 							return user;
 					} catch (NonExistingUser e) {
 

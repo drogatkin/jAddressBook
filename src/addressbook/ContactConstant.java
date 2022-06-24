@@ -27,10 +27,10 @@
 package addressbook;
 
 public interface ContactConstant {
-	public static final String[] EMAIL_TYPE = { "HOTMAIL", "GMAIL", "YANDEX", "AOL", "YAHOO", "GENERIC" };
+	public static final String[] EMAIL_TYPE = { "HOTMAIL", "GMAIL", "ICLOUD", "YANDEX", "AOL", "YAHOO", "GENERIC" };
 
 	public static final String[] TELEPHONE_TYPE = { "Home", "Cell", "Work", "Home-old", "Beeper",
 			"Boyfriend", "Cell-old", "Father", "Fax", "Friend", "Girlfriend", "Hospital", "Hotel", "In-laws",
-			"Mother", "Other", "Parents", "Relative", "School", "Vacation", "Voice Mail", "Work-oldCar",
+			"Mother", "Other", "Parents", "Relative", "School", "Vacation", "Voice Mail", "Work-oldCar", "GVoice",
 			"Modem", "Video" };
 }

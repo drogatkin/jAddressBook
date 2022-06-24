@@ -28,7 +28,6 @@ package addressbook.servlet;
 import static addressbook.servlet.model.UserProfile.ACTIVE;
 import static addressbook.servlet.model.UserProfile.LANGUAGE;
 import static addressbook.servlet.model.UserProfile.NAME;
-import static addressbook.servlet.model.UserProfile.PASSWORD;
 import static addressbook.servlet.model.UserProfile.TIMEZONE;
 
 import java.io.ByteArrayInputStream;
@@ -53,6 +52,7 @@ import addressbook.servlet.model.UserOperations.NonExistingUser;
 public class Login extends AddressBookProcessor {
 	// TODO create error string constants
 	static final String SIGN_OFF = "signoff";
+	static final String PASSWORD_PARAM = "password";
 
 	@Override
 	protected Map getModel() {
@@ -93,7 +93,7 @@ public class Login extends AddressBookProcessor {
 				return fillWithForm(createErrorMap("error_notactivates"), NAME);
 			// use password to create decryptor
 			
-			if (up.getStringAttribute(PASSWORD).equals(getStringParameterValue(PASSWORD, null, 0))) {
+			if (up.matchPassword(getStringParameterValue(PASSWORD_PARAM, null, 0))) {
 				setAllowed(true);
 				HttpSession s = getSession();
 				s.setAttribute(HV_USER_ID, id = id.intern());
@@ -112,7 +112,7 @@ public class Login extends AddressBookProcessor {
 					Thread.sleep(3*1000); // to avoid automatic password breaking
 				return fillWithForm(createErrorMap("error_password"), NAME);
 			}
-		} catch (NonExistingUser e) {
+		} catch (NonExistingUser|IllegalArgumentException e) {
 			return fillWithForm(createErrorMap("error_nosuchuser"), NAME);
 		} catch (InterruptedException e) {
 		}

@@ -116,11 +116,11 @@ public class Registry extends AddressBookProcessor {
 				}
 				return null;
 			}
-		String password = getStringParameterValue(PASSWORD, "", 0);
+		String password = getStringParameterValue(Login.PASSWORD_PARAM, "", 0);
 		if (isLoginForm() && password.length() == 0)
 			return fillWithForm(createErrorMap("error_passwordempty"), NAME, EMAIL, LANGUAGE, TIMEZONE,
 					SECRET_QUESTION, P_CHALLENGE_TOKEN);
-		if (password.equals(getStringParameterValue(PASSWORD + '2', "", 0)) == false)
+		if (password.equals(getStringParameterValue(Login.PASSWORD_PARAM + '2', "", 0)) == false)
 			return fillWithForm(createErrorMap("error_passwordsnotmatch"), NAME, EMAIL, LANGUAGE, TIMEZONE,
 					SECRET_QUESTION, P_CHALLENGE_TOKEN, P_MODE);
 		boolean instant_creation = "yes".equals(getProperty("NOACCOUNTCONFIRMATION"));
@@ -140,7 +140,8 @@ public class Registry extends AddressBookProcessor {
 				// TODO check if e-mail changed than initiate validation
 				// procedure with account suspension
 				fillWithForm(up, EMAIL, LANGUAGE, TIMEZONE, SECRET_QUESTION);
-				fillWithFormFilled(up, PASSWORD, ACCESS_KEY, SECRET_ANSWER);
+				fillWithFormFilled(up, ACCESS_KEY, SECRET_ANSWER);
+				up.setPassword(getStringParameterValue(Login.PASSWORD_PARAM, "", 0));
 				// TODO validate e-mail address form here
 				getUPOperations().updateUser(id, up);
 				updateBlogAccount(up);
@@ -161,7 +162,8 @@ public class Registry extends AddressBookProcessor {
 								SECRET_QUESTION, P_CHALLENGE_TOKEN);
 
 					up = new UserProfile();
-					fillWithForm(up, NAME, EMAIL, PASSWORD, ACCESS_KEY, LANGUAGE, TIMEZONE, SECRET_QUESTION);
+					fillWithForm(up, NAME, EMAIL, ACCESS_KEY, LANGUAGE, TIMEZONE, SECRET_QUESTION);
+					up.setPassword(getStringParameterValue(Login.PASSWORD_PARAM, "", 0));
 					try {
 						// order important to be able to escalate
 						if (instant_creation) {

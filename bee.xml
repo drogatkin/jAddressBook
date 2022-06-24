@@ -11,7 +11,7 @@
       ]>
 <!-- $Id: bee.xml,v 1.29 2015/10/24 06:35:28 cvs Exp $
    make file used for &project; and project
-   Copyright (c) 2021 Dmitriy Rogatkin    -->
+   Copyright (c) 2022 Dmitriy Rogatkin    -->
 
 <bee name="&project;" type="project">
   &env;
@@ -131,6 +131,8 @@ Location=./data/datastorage.xml
         <value>&build_directory;</value>
         <value variable="PATH SEPARATOR"/>
         <value variable="ANDROID_RT"/>
+        <value value="${PATH SEPARATOR}${LIB_JBCRYPT}"/>
+        
      </operator>
   </expression>
 
@@ -493,6 +495,9 @@ Location=./data/datastorage.xml
          <parameter/>
          <parameter value="L"/>
          <parameter variable="aldan3-jdo path" type="path"/>
+         <parameter/>
+         <parameter value="L"/>
+         <parameter variable="LIB_JBCRYPT" type="path"/>
          <parameter/>
          <parameter>A WEB-INF/config/</parameter>
          <parameter>resource/config/jaddressbook.properties</parameter>

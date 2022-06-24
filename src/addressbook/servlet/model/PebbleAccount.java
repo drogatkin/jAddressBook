@@ -82,7 +82,7 @@ public class PebbleAccount {
 		else
 			pebbleProfile.setProperty(WEBSITE, "http://jaddressbook.sourceforge.net");
 
-		pebbleProfile.setProperty(PASSWORD, encode(up.getStringAttribute(UserProfile.PASSWORD), up
+		pebbleProfile.setProperty(PASSWORD, encode(up.getPasswordHash(), up
 				.getStringAttribute(UserProfile.NAME)));
 		if (contact != null && contact.getName() != null)
 			pebbleProfile.setProperty(NAME, contact.getName().toString());
@@ -165,7 +165,7 @@ public class PebbleAccount {
 
 	public static void main(String... args) {
 		UserProfile up = new UserProfile();
-		up.setAttribute(UserProfile.PASSWORD, args[0]);
+		up.setPassword(args[0]);
 		up.setAttribute(UserProfile.NAME, args[1]);
 		try {
 			new PebbleAccount().create(up, new Properties(), null);

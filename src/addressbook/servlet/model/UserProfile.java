@@ -25,10 +25,12 @@
 
 package addressbook.servlet.model;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 public class UserProfile extends AbstractAttributeStorage {
     public static final String NAME = "name";
     public static final String EMAIL = "email";
-    public static final String PASSWORD = "password";
+    private static final String PASSWORD = "password";
     public static final String SECRET_QUESTION = "secret_question";
     public static final String SECRET_ANSWER = "secret_answer";
     public static final String ACCESS_KEY = "access_key";
@@ -46,5 +48,17 @@ public class UserProfile extends AbstractAttributeStorage {
 	@Override
 	public Object getId() {
 		return getAttribute(NAME);
+	}
+	
+	public void setPassword(String password) {
+		setStringAttribute(PASSWORD, BCrypt.hashpw(password, BCrypt.gensalt()));
+	}
+	
+	public boolean matchPassword(String password) {
+		return BCrypt.checkpw(password, getStringAttribute(PASSWORD));
+	}
+	
+	public String getPasswordHash() {
+		return getStringAttribute(PASSWORD);
 	}
 }

@@ -1,7 +1,7 @@
 <div style="text-align:right" onclick="newAccount()">@commonlabel.new@ @label.account@</div>
 <table>
   @account(
-    <tr><td><input type="checkbox" name="account@index@mark"></td><td class="drilled" colspan="2" onclick="populateAccnt('@^element.getValue*()*@', '@element.getLink*()*@')">@element.getDescription*()*@</td><td rowspan="2"><a target="accnt_accss" href="@element.getLink*()*@">&gt;</a></td></tr>
+    <tr><td><input type="checkbox" name="account@index@mark"></td><td class="drilled" colspan="2" onclick="populateAccnt('@^element.getValue*()*@', '@element.getLink*()*@', @index@)">@element.getDescription*()*@</td><td rowspan="2"><a target="accnt_accss" href="@element.getLink*()*@">&gt;</a></td></tr>
     <tr><td colspan="3">@element.getName*()*@  @element.getValue*()*@</td></tr>
   )@
   
@@ -22,7 +22,8 @@
   <div>@label.access@<br/>
   <input type="text" name="accountlink" value=""></div>
   <input type="hidden" name="accounthash" value="">
-  <div onclick="document.contactview.submit.click()">@commonlabel.apply@</div>
+  <input type="hidden" name="accountindex" value="">
+  <div onclick="document.contactview['submit.y'].click()">@commonlabel.apply@</div>
  </div>
  <script>
      function closeEdit() {
@@ -56,7 +57,7 @@
     	 });
      }
      
-     function populateAccnt(val, lnk) { // populate only one accnt 
+     function populateAccnt(val, lnk, index) { // populate only one accnt 
     	 makeJSONAjaxCall('Contactview/ajax/getAccntInfo',
     			 'account='+encodeURIComponent(val)+'&accountlink='+encodeURIComponent(lnk)+
     			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@', true,
@@ -67,6 +68,7 @@
     		 document.contactview.accounthash.value = dat.accounthash;
     		 document.contactview.accountlink.value = dat.accountlink;
     		 document.contactview.accountpassword.value = '********';
+    		 document.contactview.accountindex.value = '\''+index+'\''
     		 getElement('password_vis').innerHTML = '';
     		 getElement('accnt_form').style.display='';
     	 });

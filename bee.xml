@@ -452,7 +452,7 @@ Location=./data/datastorage.xml
                 <parameter value="&deploy_directory;/&target_name;.war" type="path"/>
              </function>
              <function name="anynewer">
-                <parameter value="resource\config" type="path"/>
+                <parameter value="resource/config" type="path"/>
                 <parameter value="&deploy_directory;/&target_name;.war" type="path"/>
              </function>
           </operator>
@@ -461,23 +461,29 @@ Location=./data/datastorage.xml
     <dependency>
        <expression>
           <function name="anynewer">
-             <parameter value="resource\html" type="path"/>
+             <parameter value="resource/html" type="path"/>
              <parameter value="&deploy_directory;/&target_name;.war" type="path"/>
           </function>
        </expression>
     </dependency>
     <dependency>
        <expression>
-          <function name="anynewer">
-             <parameter value="resource\template" type="path"/>
-             <parameter value="&deploy_directory;/&target_name;.war" type="path"/>
-          </function>
+     	  <operator name="or">
+	          <function name="anynewer">
+	             <parameter value="resource/template" type="path"/>
+	             <parameter value="&deploy_directory;/&target_name;.war" type="path"/>
+	          </function>
+	           <function name="anynewer">
+	             <parameter value="resource/template/mobile" type="path"/>
+	             <parameter value="&deploy_directory;/&target_name;.war" type="path"/>
+	          </function>
+	      </operator>
        </expression>
     </dependency>
     <dependency>
        <expression>
           <function name="anynewer">
-             <parameter value="resource\text" type="path"/>
+             <parameter value="resource/text" type="path"/>
              <parameter value="&deploy_directory;/&target_name;.war" type="path"/>
           </function>
        </expression>

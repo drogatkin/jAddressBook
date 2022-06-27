@@ -10,7 +10,21 @@
 	   getElement('menu').style.display = 'none';
    }
    function openTab(tab) {
-	     window.location = 'Contactview?name=@:name@&hash=@contact.hashCode*()*@&folder=@:folder@&tab='+tab; 
+	  // alert('open tab '+tab+document.contactview.beforename.value)
+	// if a new contact then sve first in background
+	   if (document.contactview.beforename.value == '') {
+		   if (document.contactview.name.value == '') {
+			   alert('Specify a contact name first')
+			   return
+		   }
+		  // alert('submiting for '+ document.forms.contactview.name.value+' form '+document.contactview)
+		   // submit with redirection to Contactview?name=@:name@&hash=@contact.hashCode*()*@&folder=@:folder@&tab='+tab
+				   document.contactview.tab.value=tab
+				   //document.contactview['submit.y'].value='1'
+				   document.contactview.submit()
+				   return
+	   }
+	     window.location = 'Contactview?name=@:name@&hash=@contact.hashCode*()*@&folder=@:folder@&tab='+tab
    }
 </script>
 <form name="contactview" action="Contactview" method="post">
@@ -28,8 +42,9 @@
 <input type="hidden" name="beforename" value="@contact.getName*()*.getLast*()*@">
 <input type="hidden" name="hash" value="@contact.getName*()*.hashCode*()*@">
 <input type="hidden" name="folder" value="@folder@">
-
-<div><input type="submit" name="submit" value="@commonlabel.save@"></input>
+<input type="hidden" name="tab" value="">
+<input type="hidden" name="submit.x" value="1">
+<div><input type="submit" name="submit.y" value="@commonlabel.save@"></input>
 </div>
 </form>
 @%'mobile/foot.htm'@

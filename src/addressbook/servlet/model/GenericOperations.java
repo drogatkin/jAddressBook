@@ -68,6 +68,7 @@ public class GenericOperations<RT extends AbstractAttributeStorage> extends Abst
 					if (xs instanceof Contact) {
 						RT record = (RT) xs;
 						//System.err.println("Matching:"+record.getAttribute(Contact.NAME).toString()+"|");
+						// TODO search also for other contact attributes
 						if (p.matcher(record.getAttribute(Contact.NAME).toString()).matches()) 
 							result.add(record);
 			//			else

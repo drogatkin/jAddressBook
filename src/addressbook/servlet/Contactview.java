@@ -66,6 +66,8 @@ public class Contactview extends AddressBookProcessor {
 
 	static final String[] TABNAMES = { "mail", "phone", "notes", "links", "accnt", "address", "attach", "chat", "secret" };
 
+	private static final String CONTACT = "CONTACT";
+
 	@Override
 	protected Map getModel() {
 		Map result = new HashMap();
@@ -79,6 +81,8 @@ public class Contactview extends AddressBookProcessor {
 
 		FolderOperations fo = getFolderOperations();
 		Contact contact = getContactOperations().getContact(fo, folderName, NAME, P_HASH, this);
+		if (contact == null)
+			contact = (Contact)req.getAttribute(CONTACT);
 		if (contact != null) {
 			System.err.println("OOOOOOOO contact found"+contact.getPictures());
 			result.put(V_CONTACT, contact);
@@ -97,8 +101,11 @@ public class Contactview extends AddressBookProcessor {
 			result.put(PGP, contact.getPGPs());
 			result.put(V_READONLY, fo.canModifyContacts(folderName) == false
 					&& getSession().getAttribute(HV_USER_ID).equals(contact.getOwner()) == false);
-		} else
-			result.put(V_CONTACT, new Contact(new Date()));
+		} else {
+			contact = new Contact(new Name("","","","","","",""));
+		
+			result.put(V_CONTACT, contact);
+		}
 		req.setAttribute(V_CIPHER, getCipherOperations()); // to init()
 		addTabsMenu(result);
 		result.put("modeview", "mobile/" + getStringParameterValue("tab", "mail", 0) + "tab.htm");
@@ -109,37 +116,9 @@ public class Contactview extends AddressBookProcessor {
 	protected Map doControl() {
 		// temporary disable to modify contacts from Shared, until not
 		// modifiable attr for contact introduced
-		String folderName = getStringParameterValue(P_FOLDER, "", 0);
-		FolderOperations fo = getFolderOperations();
-		/*
-		 * try { log("Name from page:'"+getStringParameterValue(NAME, "",
-		 * 0)+"', and after name:"+new Name(getStringParameterValue(NAME, "",
-		 * 0)), null); } catch (ParseException e1) { e1.printStackTrace(); }
-		 */
-		Contact contact = getContactOperations().getContact(fo, folderName, P_BEFORENAME, P_HASH, this);
-		// validate fields as e-mails, phones, dob, urls
-		if (contact == null) {
-			contact = new Contact(new Date());
-
-			if (fo.canModifyContacts(folderName) == false)
-				contact.setOwner((String) getSession().getAttribute(HV_USER_ID));
-			List<Folder> folders = fo.search(GenericOperations.escapeMask(folderName), null);
-			log("A new contact " + contact + " will be added in first folder of " + folders + " found by name "
-					+ folderName, null);
-			if (folders.size() > 0)
-				fo.addContact(contact, folders.get(0));
-			else
-				log("No folders to insert " + contact + " found, requested target folder was:" + folderName, null);
-		} else {
-			if (fo.canModifyContacts(folderName) == false
-					&& getSession().getAttribute(HV_USER_ID).equals(contact.getOwner()) == false)
-				return null; // error should be
-		}
-		try { 
-			contact.setValue(new Name(getStringParameterValue(NAME, "", 0)));
-		} catch (ParseException e) {
-			log("", e);
-		}
+		Contact contact = getContact();
+		if (contact == null)
+			return null;
 		updateSet(contact, contact.getEMails(), EMAIL, EMail.class, false);
 		updateSet(contact, contact.getTelephones(), TPHONE, Telephone.class, false);
 		updateSet(contact, contact.getAddresses(), ADDRESS, Address.class, false);
@@ -204,7 +183,48 @@ public class Contactview extends AddressBookProcessor {
 		for (Picture picture : deletedPictures)
 			getAttachmentOperations().detachAttachment(contact, picture);
 		addAttachment(contact);
+		// if a tab is specified then 
+		String tab = getStringParameterValue("tab", "", 0);
+		if (!tab.isEmpty()) {
+			req.setAttribute(CONTACT, contact);
+			return getModel();
+		}
 		return null;
+	}
+	
+	protected Contact getContact() {
+		String folderName = getStringParameterValue(P_FOLDER, "", 0);
+		FolderOperations fo = getFolderOperations();
+		/*
+		 * try { log("Name from page:'"+getStringParameterValue(NAME, "",
+		 * 0)+"', and after name:"+new Name(getStringParameterValue(NAME, "",
+		 * 0)), null); } catch (ParseException e1) { e1.printStackTrace(); }
+		 */
+		Contact contact = getContactOperations().getContact(fo, folderName, P_BEFORENAME, P_HASH, this);
+		// validate fields as e-mails, phones, dob, urls
+		if (contact == null) {
+			contact = new Contact(new Date());
+
+			if (fo.canModifyContacts(folderName) == false)
+				contact.setOwner((String) getSession().getAttribute(HV_USER_ID));
+			List<Folder> folders = fo.search(GenericOperations.escapeMask(folderName), null);
+			log("A new contact " + contact + " will be added in first folder of " + folders + " found by name "
+					+ folderName, null);
+			if (folders.size() > 0)
+				fo.addContact(contact, folders.get(0));
+			else
+				log("No folders to insert " + contact + " found, requested target folder was:" + folderName, null);
+		} else {
+			if (fo.canModifyContacts(folderName) == false
+					&& getSession().getAttribute(HV_USER_ID).equals(contact.getOwner()) == false)
+				return null; // error should be
+		}
+		try { 
+			contact.setValue(new Name(getStringParameterValue(NAME, "", 0)));
+		} catch (ParseException e) {
+			log("", e);
+		}
+		return contact;
 	}
 
 	/**
@@ -300,6 +320,13 @@ public class Contactview extends AddressBookProcessor {
 				}
 			}
 		return res;
+	}
+	
+	public String processcreateContactCall() {
+		Contact contact = getContact();
+		if (contact == null)
+			return "";
+		return String.valueOf(contact.hashCode());
 	}
 	
 	public String getgetAccntInfoViewName() {

@@ -295,8 +295,15 @@ public class Contact extends AbstractAttributeStorage implements XMLSaver {
 	public void add(Account account) {
 		if (accounts == null)
 			accounts = new ArrayList<Account>();
-		if (account != null && account.isEmpty() == false)
+		if (account != null && account.isEmpty() == false) {
+			// search for existing account with same hash
+			/*for(Account current: accounts) {
+				if(current.hashCode() == account.hashCode()) {
+					
+				}
+			}*/
 			accounts.add(account);
+		}
 	}
 
 	public Account remove(Account a) {

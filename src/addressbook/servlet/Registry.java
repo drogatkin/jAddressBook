@@ -141,7 +141,9 @@ public class Registry extends AddressBookProcessor {
 				// procedure with account suspension
 				fillWithForm(up, EMAIL, LANGUAGE, TIMEZONE, SECRET_QUESTION);
 				fillWithFormFilled(up, ACCESS_KEY, SECRET_ANSWER);
-				up.setPassword(getStringParameterValue(Login.PASSWORD_PARAM, "", 0));
+				password = getStringParameterValue(Login.PASSWORD_PARAM, "", 0);
+				if (!password.isEmpty())
+					up.setPassword(password);
 				// TODO validate e-mail address form here
 				getUPOperations().updateUser(id, up);
 				updateBlogAccount(up);

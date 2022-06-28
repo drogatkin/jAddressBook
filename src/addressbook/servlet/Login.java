@@ -95,6 +95,8 @@ public class Login extends AddressBookProcessor {
 			
 			if (up.matchPassword(getStringParameterValue(PASSWORD_PARAM, null, 0))) {
 				setAllowed(true);
+				logged(this, up);
+				/*setAllowed(true);
 				HttpSession s = getSession();
 				s.setAttribute(HV_USER_ID, id = id.intern());
 				s.setAttribute(ATTR_SESSION_FOLDER_OPER, getFolderOperations());
@@ -106,10 +108,15 @@ public class Login extends AddressBookProcessor {
 				applyKey(s, this);
 				// setting mobile attribute in session
 				if (mobile) 
-					s.setAttribute(ATTR_WEBMOBILE, Boolean.TRUE);
+					s.setAttribute(ATTR_WEBMOBILE, Boolean.TRUE); */
 				// log out loging has to be session listener
 			} else {
-					Thread.sleep(3*1000); // to avoid automatic password breaking
+					Thread.sleep(3*1000); // to avoid brute force attack
+					if(up.getStringAttribute(UserProfile.SECRET_ANSWER) != null) {
+						Map result = fillWithForm(createErrorMap("error_password"), NAME);
+						result.put("RECOVER", "1");
+						return result;
+					}
 				return fillWithForm(createErrorMap("error_password"), NAME);
 			}
 		} catch (NonExistingUser|IllegalArgumentException e) {
@@ -117,6 +124,22 @@ public class Login extends AddressBookProcessor {
 		} catch (InterruptedException e) {
 		}
 		return null;
+	}
+	
+	static protected void logged(AddressBookProcessor abp, UserProfile up) {
+		//abp.setAllowed(true);
+		HttpSession s = abp.getSession();
+		String id;
+		s.setAttribute(HV_USER_ID, id = up.getStringAttribute(NAME));
+		s.setAttribute(ATTR_SESSION_FOLDER_OPER, abp.getFolderOperations());
+		UserOperations.applyLocale(up.getStringAttribute(LANGUAGE), s);
+		UserOperations.applyTimezone(up.getStringAttribute(TIMEZONE), s);
+		LogOperations lo = abp.getLogOperations();
+		s.setAttribute(ATTR_LASTLOGIN, lo.getLastLogin(id));
+		lo.logLogin(id, abp.getRemoteHost(), abp.getHeader("user-agent"));
+		applyKey(s, abp);
+		if (abp.mobile) 
+			s.setAttribute(ATTR_WEBMOBILE, Boolean.TRUE);
 	}
 
 	public String processcheckCall() {

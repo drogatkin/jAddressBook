@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="/addressbook/styles.css" type="text/css" media="all"/>
+<title>@label.header@</title>
+</head>
+<body>
+<div id="error">@error@</div>
+<div class="smallHeader">@label.header@</div>
+<div>@label.user@: @name@</div>
+<form name="recover" method="post" action="Recover">
+<label for="secret_question">@label.secret_q@ @secret_question_hint@</label>
+<input type="text" id="secret_question" name="secret_question"  autofocus="autofocus">
+<label for="secret_answer">@label.secret_a@</label>
+<input type="text" id="secret_answer" name="secret_answer">
+
+<input type="hidden" name="name" value="@name@">
+<input type="submit" name="submit" value="@label.go@">
+</form>
+
+</body>
+</html>

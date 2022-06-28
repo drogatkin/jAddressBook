@@ -51,7 +51,10 @@ public class UserProfile extends AbstractAttributeStorage {
 	}
 	
 	public void setPassword(String password) {
-		setStringAttribute(PASSWORD, BCrypt.hashpw(password, BCrypt.gensalt()));
+		if (password != null && !password.isEmpty())
+			setStringAttribute(PASSWORD, BCrypt.hashpw(password, BCrypt.gensalt()));
+		else
+			setAttribute(PASSWORD, null);
 	}
 	
 	public boolean matchPassword(String password) {

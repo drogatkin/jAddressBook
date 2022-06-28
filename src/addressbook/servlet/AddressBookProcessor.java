@@ -197,6 +197,10 @@ public abstract class AddressBookProcessor extends BasePageService {
 		return recordOperationsCache;
 	}
 
+	protected String getRemoteHost() {
+		return req.getRemoteHost();
+	}
+	
 	public FolderOperations getFolderOperations() {
 		HttpSession s = getSession();
 		if (s == null)

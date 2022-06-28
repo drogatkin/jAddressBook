@@ -10,10 +10,9 @@
 <div><input type="text" name="name" value="@name@" autocapitalize="off" autofocus="autofocus"/></div>
 <div>@label.pass@</div>
 <div><input type="password" name="password"/></div>
-<div><input type="submit" name="submit" value="@label.go@"></input></div>
-
-
-   
+<div><input type="submit" name="submit" value="@label.go@"></input></div> 
 </form>
+
+@RECOVER(<div>@label.recover1@ <a href="Recover?name=@name@">@label.recover2@</a></div>)@
 
 </html>

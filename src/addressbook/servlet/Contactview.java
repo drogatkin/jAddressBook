@@ -238,7 +238,7 @@ public class Contactview extends AddressBookProcessor {
 	 *         retrieved
 	 */
 	public String processgetPasswordCall() {
-		log("producegetPasswordData", null);
+		//log("producegetPasswordData", null);
 		// TODO consider some hash code which can identify record uniquely,
 		// finding all matching records and raise a problem can be good too
 		Contact contact = getContactOperations().getContact(getFolderOperations(),
@@ -488,7 +488,7 @@ public class Contactview extends AddressBookProcessor {
 		if (params == null)
 			throw new Exception("No data found");
 		
-		log("updating "+index+" name "+params[0]+" hash "+hash, null);
+		//log("updating "+index+" name "+params[0]+" hash "+hash, null);
    		if (list != null) {
    			if (index >= 0 && index < list.size()) {
    				list.get(index).update(params);
@@ -553,7 +553,7 @@ public class Contactview extends AddressBookProcessor {
 						list.get(index).update(params);
 						updated = true;
 					} else
-						for(int il=0, n=list.size(); il< n; il++) {
+						for(int il=list.size()-1; il > -1; il--) {
 							GenericAttribute ga1 = (GenericAttribute)list.get(il);
 							if (ga1.equalsToUpdate(hash)) {
 								ga1.update(params);
@@ -577,6 +577,13 @@ public class Contactview extends AddressBookProcessor {
 			}
 			i++;
 		} while (true);
+		// delete
+		if (list != null && !list.isEmpty())
+			for(int il=list.size()-1; il > -1; il--) {
+				String del = getStringParameterValue(setName + il + "mark", null, 0);
+				if (del != null)
+					list.remove(il);
+			}
 	}
 	/*
 	 * public static class Tab { public String name; public String label; public

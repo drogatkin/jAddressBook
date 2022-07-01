@@ -56,6 +56,17 @@ public class Name extends GenericAttribute {
 		this(null, null, null, null, null, null, null);
 		parseName(_format);
 	}
+	
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 1))
+			throw new IllegalArgumentException();
+		try {
+			parseName((String)params[0]);
+		} catch( ParseException e) {
+			
+		}
+	}
 
 	public String getLast() {
 		return value;

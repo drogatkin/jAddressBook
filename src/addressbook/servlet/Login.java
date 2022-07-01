@@ -87,6 +87,7 @@ public class Login extends AddressBookProcessor {
 		if (id == null || id.length() == 0) {
 			return createErrorMap("error_nousername");
 		}
+		id = id.trim();
 		try {
 			UserProfile up = getUPOperations().getUser(id);
 			if (new Boolean(up.getStringAttribute(ACTIVE)) == false)

@@ -70,6 +70,9 @@ public class Contactview extends AddressBookProcessor {
 
 	@Override
 	protected Map getModel() {
+		// Important: a requester has to obtain a valid edit ticket
+		// only one edit ticket can be valid
+		// the ticket can be invalidated any time
 		Map result = new HashMap();
 		// TODO: folder name supposes look like root/node1/node2...
 		String folderName = getStringParameterValue(P_FOLDER, getStringParameterValue(P_NODE, "", 0), 0);
@@ -244,13 +247,24 @@ public class Contactview extends AddressBookProcessor {
 			return "no contact";
 		String s = getStringParameterValue(ACCOUNT, "", 0);
 		String u = getStringParameterValue(ACCOUNT + Account.LINK, "", 0);
+		int index = getIntParameterValue("accountindex", -1, 0 );
+		int hash = 0;
 		if (s.length() == 0 || u.length() == 0)
 			return "account or link empty";
-		for (Account account : contact.getAccounts()) {
-			if (s.equals(account.getValue()) && u.equals(account.getLink()))
-				return account.getPassword() != null ? HttpUtils.htmlEncode(account.getPassword()) : "empty";
-		}
-		return "not found";
+		List<Account> list = contact.getAccounts();
+		String password = "not found";
+		if (index >= 0 && index < list.size()) {
+			password = list.get(index).getPassword();
+			} else if (hash != 0 )
+				for (int i = 0, n = list.size(); i < n; i++) {
+				Account account = list.get(i);
+				if (account.hashCode() == hash) {
+					password = account.getPassword();
+					break;
+				}
+			}
+
+		return password == null?"empty":password; // HttpUtils.htmlEncode(
 	}
 
 	public Map processFileUploadCall() {
@@ -293,8 +307,8 @@ public class Contactview extends AddressBookProcessor {
 				throw new Exception("Contact can't be found");
 			updateContact(contact, contact.getAccounts(), ACCOUNT, Account.class, new String[] { Account.DESCRIPTION,
 					Account.PASSWORD, Account.NAME, Account.LINK }, new Class[] { String.class, String.class,
-					String.class, String.class });
-			return "Ok";
+					String.class, String.class }, getIntParameterValue("accountindex", -1, 0 ), 0);
+			return "Ok "+contact.getAccounts().size();
 		} catch (Exception e) {
 			return "Error " + e;
 		}
@@ -310,15 +324,24 @@ public class Contactview extends AddressBookProcessor {
 		}
 		String s = getStringParameterValue(ACCOUNT, "", 0);
 		String u = getStringParameterValue(ACCOUNT + Account.LINK, "", 0);
-		if (s.length() == 0 || u.length() == 0) {
-			res.put("model", new Account("error", "account or link empty"));
-		} else
-			for (Account account : contact.getAccounts()) {
-				if (s.equals(account.getValue()) && u.equals(account.getLink())) {
-					res.put("model", account);
-					break;
-				}
-			}
+		int index = getIntParameterValue("accountindex", -1, 0 );
+		int hash = 0;
+
+		if (s.length() == 0 /*|| u.length() == 0*/) {
+			res.put("model", new Account("error", "account or a link empty"));
+		} else {
+			List<Account> list = contact.getAccounts();
+					if (index >= 0 && index < list.size()) {
+						res.put("model", list.get(index));
+		   			} else if (hash != 0 )
+		   				for (int i = 0, n = list.size(); i < n; i++) {
+							Account account = list.get(i);
+							if (account.hashCode() == hash) {
+								res.put("model", account);
+								break;
+							}
+						}
+		}
 		return res;
 	}
 	
@@ -433,14 +456,30 @@ public class Contactview extends AddressBookProcessor {
 		for (int k = 0; k < paramNames.length; k++) {
 			if (paramTypes[k] == Integer.class || paramTypes[k] == int.class)
 				placeholders[k + 1] = getIntParameterValue(setName + paramNames[k], -1, offset);
-			else
+			else if (paramTypes[k] == Date.class) {
+				String date = getStringParameterValue(setName + paramNames[k], null, offset);
+				if (date != null) 
+					try {
+						placeholders[k + 1] = new SimpleDateFormat(getResourceString(R_DOB_FORMAT, "MM/dd/yyyy"))
+						.parse(date);
+					} catch(ParseException pe) {
+						log("Error in parsing date: "+date, pe);
+					}
+				else
+					placeholders[k + 1] = null;
+			} else
 				placeholders[k + 1] = getStringParameterValue(setName + paramNames[k], null, offset);
 		}
 		return placeholders;
 	}
-
+	
 	protected <T extends GenericAttribute> void updateContact(Contact contact, List<T> list, String setName,
 			Class<T> kind, String[] paramNames, Class[] paramTypes) throws Exception {
+		updateContact(contact, list, setName, kind, paramNames, paramTypes, -1, 0);
+	}
+
+	protected <T extends GenericAttribute> void updateContact(Contact contact, List<T> list, String setName,
+			Class<T> kind, String[] paramNames, Class[] paramTypes, int index, int hash) throws Exception {
 		Constructor c = getConstractorFor(kind, paramNames, paramTypes);
 		if (c == null)
 			throw new Exception("Incosistent constructor metadata");
@@ -448,15 +487,24 @@ public class Contactview extends AddressBookProcessor {
 		params = fillParams(0, setName, paramNames, paramTypes, params);
 		if (params == null)
 			throw new Exception("No data found");
-		GenericAttribute ga = (GenericAttribute) c.newInstance(params);
-		if (list != null)
-			for (int i = 0; i < list.size(); i++) {
-				GenericAttribute cga = list.get(i);
-				if (cga.getValue().equals(ga.getValue())) {
-					list.set(i, (T) ga);
-					return;
+		
+		log("updating "+index+" name "+params[0]+" hash "+hash, null);
+   		if (list != null) {
+   			if (index >= 0 && index < list.size()) {
+   				list.get(index).update(params);
+   				//list.set(index, (T) ga);
+   				return;
+   			} else if (hash != 0 )
+   				for (int i = 0, n = list.size(); i < n; i++) {
+					GenericAttribute cga = list.get(i);
+					if (cga.hashCode() == hash) {
+						list.get(i).update(params);
+						//list.set(i, (T) ga);
+						return;
+					}
 				}
-			}
+   		}
+   		GenericAttribute ga = (GenericAttribute) c.newInstance(params);
 		contact.add((T) ga);
 	}
 
@@ -465,7 +513,7 @@ public class Contactview extends AddressBookProcessor {
 		updateSet(contact,list, setName, kind, paramNames, paramTypes, false);
 	}
 	
-	protected void updateSet(Contact contact, List list, String setName, Class kind, String[] paramNames,
+	protected void updateSet(Contact contact, List<? extends GenericAttribute> list, String setName, Class kind, String[] paramNames,
 			Class[] paramTypes, boolean numbered) {
 		// TODO check field size, because can be bug and too much
 		Constructor c = getConstractorFor(kind, paramNames, paramTypes);
@@ -481,6 +529,8 @@ public class Contactview extends AddressBookProcessor {
 		}
 		int di = getIntParameterValue(setName + "default", -1, 0);
 		int i = 0;
+		int hash = 0;
+		hash = getIntParameterValue(setName + i + "hash", -1, 0);
 		Object[] params = new Object[paramNames.length + 1];
 		do {
 			params = fillParams(i, setName, paramNames, paramTypes, params, numbered);
@@ -491,24 +541,29 @@ public class Contactview extends AddressBookProcessor {
 					i++;
 					continue;
 				}
+			
 			try {
 				GenericAttribute ga = (GenericAttribute) c.newInstance(params);
 				ga.offset = i;
-				if (list != null && mobile) {
+				boolean updated = false;
+				if (list != null && mobile) { // update by an element number ?
+					int index = getIntParameterValue(setName + "index", -1, 0);
 // look in contacts if update needed
-					for(int il=0, n=list.size(); il< n; il++) {
-						GenericAttribute ga1 = (GenericAttribute)list.get(il);
-						if (ga1.equalsToUpdate(ga)) {
-							if (kind.equals(Account.class)) {
-								if ("********".equals(((Account)ga).getPassword()))
-									((Account)ga).setPassword(((Account)ga1).getPassword());
+					if (index >= 0 && index < list.size()) {
+						list.get(index).update(params);
+						updated = true;
+					} else
+						for(int il=0, n=list.size(); il< n; il++) {
+							GenericAttribute ga1 = (GenericAttribute)list.get(il);
+							if (ga1.equalsToUpdate(hash)) {
+								ga1.update(params);
+								updated = true;
+								break;
 							}
-							list.remove(il);
-							break;
 						}
-					}
 				} 
-				contact.add(ga );
+				if (!updated)
+					contact.add(ga );
 				if (di == i)
 					ga.setPreferable(true);
 			} catch (IllegalArgumentException e) {

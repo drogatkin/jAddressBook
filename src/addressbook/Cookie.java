@@ -36,6 +36,16 @@ public class Cookie extends GenericAttribute {
 		purpose = _purpose;
 		expire = _exp;
 	}
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 5))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		description = (String)params[1];
+		domain = (String)params[2];
+		purpose = (String)params[3];
+		expire = (Date)params[4];
+	}
 
 	public void saveXML(OutputStream _out, String _enc, int _order) throws IOException {
 		saveAsTag(_out, _enc, _order, DataBookIO.COOKIE_TAG);

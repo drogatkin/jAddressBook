@@ -61,6 +61,8 @@ abstract public class GenericAttribute implements XMLSaver {
 		description = assignWithDefault(_description);
 	}
 	
+	abstract public void update(Object[] params);
+	
 	public String getDescription() {
 		return description;
 	}
@@ -108,6 +110,10 @@ abstract public class GenericAttribute implements XMLSaver {
 	
 	public boolean equalsToUpdate(Object _o) {
 		return equals(_o);
+	}
+	
+	public boolean equalsToUpdate(int hash) {
+		return hash == hashCode();
 	}
 	
 	public boolean isPreferable() {

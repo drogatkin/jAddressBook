@@ -35,6 +35,15 @@ public class Telephone extends GenericAttribute {
 	public Telephone(String _telephone, String _description, String _type) {
 		super(_telephone, _description, _type);
 	}
+	
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 3))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		description = (String)params[1];
+		type = (String)params[2];
+	}
 
 	public String getNormalized() {
 		// TODO: note that normalizer provides phone format US specific

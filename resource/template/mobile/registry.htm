@@ -7,10 +7,11 @@
 <form name="registry" action="/addressbook/ab/@servlet@">
 <div class="label">@label.name@</div>
 @mode{
-  @edit(@name@ <input type="hidden" name="name" value="@name@" />)@
+  @edit(@name@ <input type="hidden" name="name" value="@name@" />
+  <input type="hidden" name="mode" value="edit" />)@
   @(<input type="text" name="name" value="@name@" />
   )@ 
-  }@
+}@
   
   <div class="label">@label.email@<br/><input type="email" name="email" value="@email@" /></div>
   <div class="label">@label.pass@<br/><input type="password" name="password"></div>
@@ -31,7 +32,7 @@
 </form>
   @mode{
  @edit(@%'mobile/foot.htm'@)@
- @(<a href="http://jaddressbook.sf.net" target="_blank">@commonlabel.home@</a> &nbsp; | &nbsp;
+ @(<a href="https://github.com/drogatkin/jAddressBook" target="_blank">@commonlabel.home@</a> &nbsp; | &nbsp;
    <a href="@contextpath@">@label.login@</a>)@
  }@
 

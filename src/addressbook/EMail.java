@@ -36,6 +36,15 @@ public class EMail extends GenericAttribute {
 	public EMail(String _email, String _description) {
 		super(_email, _description);
 	}
+	
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 3))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		description = (String)params[1];
+		type = (String)params[2];
+	}
 
 	public void saveXML(OutputStream _out, String _enc, int order) throws IOException, UnsupportedEncodingException {
 		_out.write(("<EMAIL ORDER=\"" + order + "\"  TYPE=\""+(type==null?"GENERIC":type)+"\" COMMENT=\"").getBytes(_enc));

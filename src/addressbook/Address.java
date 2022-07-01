@@ -34,33 +34,7 @@ public class Address extends GenericAttribute {
 
 	public Address(String rawAddr, String description, String title) {
 		super(null, description);
-		StringTokenizer st = new StringTokenizer(rawAddr, "");
-		String line2 = null;
-		try {
-			value = st.nextToken("\n").trim();
-			line2 = st.nextToken().trim();
-			city = st.nextToken(",\n");
-			state = st.nextToken(" ,");
-			zip = st.nextToken(", ");
-			value += ", "+line2.trim();
-			line2 = null;
-			country = st.nextToken("\r\n");
-		} catch (NoSuchElementException nsee) {
-			if (line2 != null) {
-				st = new StringTokenizer(line2, "");
-				city = st.nextToken(",\n");
-				if (st.hasMoreTokens()) {
-					state = st.nextToken(" ,");
-					if (st.hasMoreTokens())
-						zip = st.nextToken(", ");
-				}
-			}
-		}
-		city = assignWithDefault(city);
-		state = assignWithDefault(state);
-		country = assignWithDefault(country);
-		zip = assignWithDefault(zip);
-		this.title = assignWithDefault(title);
+		update(new String[] {rawAddr, description, title});
 	}
 
 	public Address(String _street, String _city, String _state, String _country, String _zip, String _description,
@@ -71,6 +45,45 @@ public class Address extends GenericAttribute {
 		country = assignWithDefault(_country);
 		zip = assignWithDefault(_zip);
 		title = assignWithDefault(_title);
+	}
+	
+	@Override
+	public void update(Object [] params) {
+		// String name, String description, String password, String account, String url
+		if (params == null || (params.length != 3 && params.length != 7 ))
+			throw new IllegalArgumentException();
+		if (params.length == 3) {
+			description = (String)params[1];
+			StringTokenizer st = new StringTokenizer((String)params[0], "");
+			String line2 = null;
+			try {
+				value = st.nextToken("\n").trim();
+				line2 = st.nextToken().trim();
+				city = st.nextToken(",\n");
+				state = st.nextToken(" ,");
+				zip = st.nextToken(", ");
+				value += ", "+line2.trim();
+				line2 = null;
+				country = st.nextToken("\r\n");
+			} catch (NoSuchElementException nsee) {
+				if (line2 != null) {
+					st = new StringTokenizer(line2, "");
+					city = st.nextToken(",\n");
+					if (st.hasMoreTokens()) {
+						state = st.nextToken(" ,");
+						if (st.hasMoreTokens())
+							zip = st.nextToken(", ");
+					}
+				}
+			}
+			city = assignWithDefault(city);
+			state = assignWithDefault(state);
+			country = assignWithDefault(country);
+			zip = assignWithDefault(zip);
+			this.title = assignWithDefault((String)params[2]);
+		} else if (params.length == 7) {
+			throw new IllegalArgumentException();
+		}
 	}
 
 	public String getFormated() {

@@ -42,7 +42,7 @@ public class GenericOperations<RT extends AbstractAttributeStorage> extends Abst
 	public void init(AddressBookProcessor abp) {
 	}
 
-	public List<RT> search(String query, String folderName, FolderOperations folderOperations) {
+	public List<RT> search1(String query, String folderName, FolderOperations folderOperations) {
 		// TODO redefine API to provide a list of desirable types
 		List<Folder> folders = folderOperations.search(escapeMask(folderName), new Folder.FolderType[] {
 				Folder.FolderType.Contact, Folder.FolderType.Mixed });
@@ -83,12 +83,22 @@ public class GenericOperations<RT extends AbstractAttributeStorage> extends Abst
 		}
 		return result;
 	}
+	
+	public List<RT> search(String query, String folderName, FolderOperations folderOperations) {
+		// TODO redefine API to provide a list of desirable types
+		List<Folder> folders = folderOperations.search(escapeMask(folderName), new Folder.FolderType[] {
+				Folder.FolderType.Contact, Folder.FolderType.Mixed });
+		//System.err.println("Found fs:" + folderName + "\n" + folders);
+		if (folders == null)
+			return null;
+		return null;
+	}
 
 	public RT getContact(FolderOperations fo, String folderName, String lastParName, String hashParName,
 			AddressBookProcessor abp) {
 		// find a record to update
 		String name = abp.getStringParameterValue(lastParName, "", 0);
-		List<RT> records = search(".*" + escapeMask(name) + ".*", folderName, fo);
+		List<RT> records = search1(".*" + escapeMask(name) + ".*", folderName, fo);
 		int hash = hashParName==null?name.hashCode():abp.getIntParameterValue(hashParName, 0, 0);
 		//System.err.printf("Looking for '%s', hash: %d, in- %s%n", name, hash, folderName);
 		if (hash != 0) {

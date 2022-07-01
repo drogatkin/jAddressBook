@@ -50,6 +50,21 @@ public class Chat extends GenericAttribute {
 			type = MNEMO[_chatType-1];
 	}
 	
+	@Override
+	public void update(Object [] params) {
+		// String name, String description, String password, String account, String url
+		if (params == null || (params.length != 5))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		host = assignWithDefault((String)params[1]);
+		room = assignWithDefault((String)params[4]);
+		if ((Integer)params[2] < IRC_CHAT || (Integer)params[2] > MAX_CHAT_TYPE)
+			type = MNEMO[0];
+			else
+			type = MNEMO[(Integer)params[2]-1];
+		description = (String)params[3];
+	}
+	
 	public String getHost() {
 		return host;
 	}

@@ -32,6 +32,14 @@ public class Link extends GenericAttribute {
 		type = "OTHER";
 	}
 	
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 2))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		description = (String)params[1];
+	}
+	
 	public String getNormalized() {
 		if (value == null)
 			return null;

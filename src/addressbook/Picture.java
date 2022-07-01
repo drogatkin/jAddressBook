@@ -40,6 +40,15 @@ public class Picture extends GenericAttribute implements XMLSaver, AttributeStor
 	public Picture(String url, String description, String type) {
 		super(url, description, type);
 	}
+	
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 3))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		description = (String)params[1];
+		type = (String)params[2];
+	}
 
 	public void saveXML(OutputStream _out, String _enc, int _order) throws IOException {		
 		saveAsTag(_out, _enc, _order, PICTURE_TAG);

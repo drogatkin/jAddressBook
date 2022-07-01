@@ -21,9 +21,9 @@
      N++;
   }
 
-  function displayPassword(td,field,url,name) {
-    makeIFrameAjaxCall('Contactview/ajax/getPassword?account='+encodeURIComponent(field)+'&accountlink='+encodeURIComponent(url)+
-        '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@',
+  function displayPassword(td,field,url,name,index) {
+	  makeGenericAjaxCall('Contactview/ajax/getPassword', 'account='+encodeURIComponent(field)+'&accountlink='+encodeURIComponent(url)+
+        '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@&accountindex='+index, true,
         function(html) {
            td.innerHTML='<input type="text" autocomplete="off" value="'+html+'" name="'+name+'password"><input type="hidden" name="enc'+name+'password" value=" ">';
            td.onclick=null;
@@ -48,7 +48,7 @@
         <input type="hidden" value="@element.isHashed*()*@" name="account@index@hash"></td>
     <td onclick="makeEditable(this, '@^element.getDescription*()*@', 'account@index@description')" style="cursor: pointer">@element.getDescription*()*@<input type="hidden" name="account@index@description" value="@element.getDescription*()*@"></td>
     <td onclick="makeEditable(this, '@^element.getName*()*@', 'account@index@name')" style="cursor: pointer">@element.getName*()*@<input type="hidden" name="account@index@name" value="@element.getName*()*@"></td>
-    <td onclick="displayPassword(this, '@^element.getValue*()*@', '@element.getLink*()*@', 'account@index@')" style="cursor: pointer">********<input type="hidden" name="encaccount@index@password" value="@request.getAttribute*(cipher)*.encrypt*(java.lang.String^@element.getPassword*()*@)*@"><input type="hidden" name="account@index@password" value=" "></td>
+    <td onclick="displayPassword(this, '@^element.getValue*()*@', '@element.getLink*()*@', 'account@index@', @index@)" style="cursor: pointer">********<input type="hidden" name="encaccount@index@password" value="@request.getAttribute*(cipher)*.encrypt*(java.lang.String^@element.getPassword*()*@)*@"><input type="hidden" name="account@index@password" value=" "></td>
     <td>@element.getLink*()*{ @" "(&nbsp;)@ @(<a href="@element.getLink*()*@" target="_blank">@commonlabel.go@</a>)@ }@</td>
     <td onclick="makeEditable(this, '@^element.getLink*()*@', 'account@index@link')" style="cursor: pointer">@element.getLink*()*@<input type="hidden" name="account@index@link" value="@element.getLink*()*@"></td>
   </tr>

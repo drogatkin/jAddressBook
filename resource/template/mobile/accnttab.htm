@@ -1,11 +1,14 @@
 <div style="text-align:right" onclick="newAccount()">@commonlabel.new@ @label.account@</div>
-<table>
-  @account(
-    <tr><td><input type="checkbox" name="account@index@mark"></td><td class="drilled" colspan="2" onclick="populateAccnt('@^element.getValue*()*@', '@element.getLink*()*@', @index@)">@element.getDescription*()*@</td><td rowspan="2"><a target="accnt_accss" href="@element.getLink*()*@">&gt;</a></td></tr>
-    <tr><td colspan="3">@element.getName*()*@  @element.getValue*()*@</td></tr>
-  )@
-  
-</table>
+   @account(
+      <div class="elebox" id="row@index@">
+        <div class="ctrlcol"><input type="checkbox" name="account@index@mark"></div>
+        <div class="contbox">
+           <div class="titlerow drilled" onclick="populateAccnt('@^element.getValue*()*@', '@element.getLink*()*@', @index@)">@element.getDescription*()*@</div>
+           <div class="detailsrow">@element.getName*()*@  @element.getValue*()*@</div>
+        </div>
+        <div class="linkcol"><a target="accnt_accss" href="@element.getLink*()*@">&gt;</a></div>
+      </div>
+   )@
 
  <div id="accnt_form" class="edit_box" style="display:none;">
  <div class="close_corn" onclick="closeEdit()">@commonlabel.close@</div>
@@ -23,7 +26,8 @@
   <input type="text" name="accountlink" value=""></div>
   <input type="hidden" name="accounthash" value="">
   <input type="hidden" name="accountindex" value="">
-  <div onclick="document.contactview['submit.y'].click()">@commonlabel.apply@</div>
+  <!--div onclick="document.contactview['submit.y'].click()">@commonlabel.apply@</div-->
+  <div onclick="updateAccnt()">@commonlabel.apply@</div>
  </div>
  <script>
      function closeEdit() {
@@ -36,31 +40,38 @@
 		 document.contactview.accounthash.value = '';
 		 document.contactview.accountlink.value = '';
 		 document.contactview.accountpassword.value = '********';
+		 document.contactview.accountindex.value = ''
 		 getElement('password_vis').innerHTML = '';
 		 getElement('accnt_form').style.display='';
      }
      function updateAccnt() {
-    	 makeGenericAjaxCall("Contactview/ajax/updateAccnt", formValues2String(document.forms.accnt), true, function(res) {
-    		 if (res == 'Ok')
-    			 alert('good');
-    		 else
+    	 //alert('updating '+document.contactview.accountvalue.value+' at '+document.contactview.accountindex.value)
+    	// return
+    	 makeGenericAjaxCall("Contactview/ajax/updateAccnt", formValues2String(document.forms.contactview), true, function(res) {
+    		 if (res.startsWith('Ok')) {
+    			 closeEdit()
+    			 // update entry look based on returned index
+    			 updateView(res.split(' ')[1]-1)
+    			 //alert('good');
+    		 } else
     			 alert(res);
     	 });
      }
 
-     function deleteAccnt(val, lnk) {
+     function deleteAccnt(val, lnk, index) {
     	 var val = document.contactview.accountvalue.value;
     	 var lnk = document.contactview.accountlink.value;
     	 makeGenericAjaxCall("Contactview/ajax/deleteAccnt", 'account='+encodeURIComponent(val)+'&accountlink='+encodeURIComponent(lnk)+
-    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@', true,
+    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@&accountindex='+index, true,
     			 function (dat) {
     	 });
      }
      
-     function populateAccnt(val, lnk, index) { // populate only one accnt 
+     function populateAccnt(val, lnk, index) { // populate only one accnt, better use old hash 
+    	// alert('populating '+val+' for '+index)
     	 makeJSONAjaxCall('Contactview/ajax/getAccntInfo',
     			 'account='+encodeURIComponent(val)+'&accountlink='+encodeURIComponent(lnk)+
-    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@', true,
+    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@&accountindex='+index, true,
     			 function (dat) {
     		 document.contactview.accountvalue.value = dat.accountvalue;
     		 document.contactview.accountname.value = dat.accountname;
@@ -68,22 +79,49 @@
     		 document.contactview.accounthash.value = dat.accounthash;
     		 document.contactview.accountlink.value = dat.accountlink;
     		 document.contactview.accountpassword.value = '********';
-    		 document.contactview.accountindex.value = '\''+index+'\''
+    		 document.contactview.accountindex.value = index
     		 getElement('password_vis').innerHTML = '';
     		 getElement('accnt_form').style.display='';
     	 });
      }
      
      function showPass() {
-    	
     	 var val = document.contactview.accountvalue.value;
     	 var lnk = document.contactview.accountlink.value;
-    	 
-    	 makeGenericAjaxCall("Contactview/ajax/getPassword",
+    	 const index =  document.contactview.accountindex.value
+    	 makeGenericAjaxCall('Contactview/ajax/getPassword',
     			 'account='+encodeURIComponent(val)+'&accountlink='+encodeURIComponent(lnk)+
-    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@', true,
+    			 '&hash=@contact.getName*()*.hashCode*()*@&name='+encodeURIComponent("@contact.getName*()*.getLast*()*@")+'&folder=@folder@&accountindex='+index, true,
     			  function(dat) {
     		 getElement('password_vis').innerHTML = dat;
     	 });
+     }
+     
+     function updateView(newindex) {
+    	 const index = document.contactview.accountindex.value
+    	 if (index) {
+	    	 // query selector https://drafts.csswg.org/selectors/
+	    	 document.querySelector('div#row'+index+' > div[class=contbox] > div').innerHTML = document.contactview.accountdescription.value
+	    	 document.querySelector('div#row'+index+' > div[class="linkcol"]').innerHTML = '<a target="accnt_accss" href="'+document.contactview.accountlink.value+'">&gt;</a>'
+	    	 document.querySelector('div#row'+index+' > div[class=contbox] > div[class=detailsrow]').innerHTML = document.contactview.accountname.value + ' '
+	    	 + document.contactview.accountvalue.value
+    	 } else {
+    		 const ediv = document.createElement('DIV')
+    		 ediv.className = 'elebox'
+    		 ediv.id = 'row'+ newindex
+    		 ediv.innerHTML = '<div class="ctrlcol"><input type="checkbox" name="account'+newindex+'mark"></div>' +
+                '<div class="contbox">' +
+                '  <div class="titlerow drilled" onclick="populateAccnt(\'' +
+                document.contactview.accountvalue.value.replace(/'/g, "\\'") + '\', \'\', '+newindex+')">' +
+                document.contactview.accountdescription.value + '</div>' +
+                 ' <div class="detailsrow">' + document.contactview.accountname.value + ' '
+    	    	 + document.contactview.accountvalue.value + '</div>' +
+                ' </div>' +
+                '<div class="linkcol"><a target="accnt_accss" href="' +
+                document.contactview.accountlink.value+'">&gt;</a></div>'
+               // alert('inner:'+ediv.innerHTML)
+            const ele = document.querySelector('div#accnt_form')
+            ele.parentNode.insertBefore(ediv, ele)
+    	 }
      }
  </script>

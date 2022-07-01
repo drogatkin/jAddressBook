@@ -36,6 +36,14 @@ public class Resume extends GenericAttribute {
 		super(name, description);
 	}
 	
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 2))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		description = (String)params[1];
+	}
+	
 	public void saveXML(OutputStream _out, String _enc, int _order) throws IOException {
 		// TODO Auto-generated method stub
 

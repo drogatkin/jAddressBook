@@ -103,6 +103,13 @@ public class Media extends GenericAttribute {
 		values = new HashMap<String, Object>();
 		id = -1;
 	}
+	
+	@Override
+	public void update(Object [] params) {
+		if (params != null)
+			throw new IllegalArgumentException();
+		
+	}
 
 	public String getTitle() {
 		return getValue();

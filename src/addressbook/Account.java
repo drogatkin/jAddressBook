@@ -37,6 +37,8 @@ public class Account extends GenericAttribute {
 	public static final String LINK = "link";
 
 	public static final String PASSWORD = "password";
+	
+	public static final String MAGIC_PASSWORD = "********";
 
 	protected transient String password; // prevent persistance for real password
 
@@ -63,6 +65,18 @@ public class Account extends GenericAttribute {
 		setName(account);
 		setLink(url);
 	}
+	
+	@Override
+	public void update(Object [] params) {
+		// String name, String description, String password, String account, String url
+		if (params == null || params.length != 5)
+			throw new IllegalArgumentException();
+		value = assignWithDefault((String)params[0]);
+		description = assignWithDefault((String)params[1]);
+		setPassword((String)params[2]);
+		setName((String)params[3]);
+		setLink((String)params[04]);
+	}
 
 	public void setLink(String link) {
 		accessUrl = link;
@@ -75,7 +89,7 @@ public class Account extends GenericAttribute {
 	}
 
 	public void setPassword(String password) {
-		if (encrypted == false || DataBookIO.CurrentKey.getCurrent() != null)
+		if ((encrypted == false || DataBookIO.CurrentKey.getCurrent() != null) && !MAGIC_PASSWORD.equals(password))
 			this.password = password;
 		//System.err.printf("Password: %s%n", password);
 	}

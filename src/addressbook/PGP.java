@@ -31,6 +31,14 @@ public class PGP extends GenericAttribute {
 	PGP(String _publicKey, String _description) {
 		super(_publicKey, _description);
 	}
+	
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 2))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		description = (String)params[1];
+	}
 
 	public void saveXML(OutputStream _out, String _enc, int order) throws IOException, UnsupportedEncodingException {
 		_out.write(("<PGP ORDER=\"" + order + "\"  TYPE=\"OTHER\" COMMENT=\"").getBytes(_enc));

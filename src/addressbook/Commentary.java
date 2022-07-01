@@ -11,6 +11,15 @@ public class Commentary extends GenericAttribute {
 		//new Exception("Init val:"+comment).printStackTrace();
 	}
 	
+	@Override
+	public void update(Object [] params) {
+		if (params == null || (params.length != 2))
+			throw new IllegalArgumentException();
+		value = (String)params[0];
+		description = (String)params[1];
+		//type = DataBookIO.COMMENT_TAG;
+	}
+	
 	public void saveXML(OutputStream _out, String _enc, int _order) throws IOException {
 		saveAsTag(_out, _enc, _order, DataBookIO.COMMENT_TAG);
 	}

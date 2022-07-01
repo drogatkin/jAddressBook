@@ -181,7 +181,7 @@ public class Abfrontview extends AddressBookProcessor {
 	}
 
 	protected Map searchResult(Map result, String node, FolderOperations fo, boolean checked) {
-		List<AbstractAttributeStorage> l = getRecordOperations().search(getStringParameterValue(P_SEARCH, null, 0),
+		List<AbstractAttributeStorage> l = getRecordOperations().search1(getStringParameterValue(P_SEARCH, null, 0),
 				node, fo);
 		log("Search entries:" + l.size(), null);
 		List lr = new ArrayList();

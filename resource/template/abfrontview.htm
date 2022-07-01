@@ -207,7 +207,7 @@
                       <tr valign="top">
                         <td>
                           <form name="searchform">
-                             <label for="search"  style="cursor: pointer" onclick="displaySearch(document.searchform.search.value,'')">@label.search@<input type="text" name="search" id="search" onkeyup="displaySearch(document.searchform.search.value+'.*','')">&gt;</label>
+                             <label for="search"  style="cursor: pointer" onclick="displaySearch(document.searchform.search.value,'')">@label.search@<input type="text" name="search" id="search" onkeyup="displaySearch(document.searchform.search.value,'')">&gt;</label>
                           </form>
                         </td>
                         <td style="cursor: pointer"><div onclick="troggleImport()">@label.import@</div>
@@ -244,11 +244,11 @@
                    <div id="alpa_index" name="alpa_index" style="display:none">
                    <table border="0" cellpadding="2">
                      <tr>
-                       @alphabet_n(<td style="cursor: pointer" onclick="displaySearch('(@ucx@|@lcx@).*','');highL(this)">@uc@@lc@</td>)@
+                       @alphabet_n(<td style="cursor: pointer" onclick="displaySearch('@ucx@','');highL(this)">@uc@@lc@</td>)@
                      </tr>
                      <tr>
-                       @alphabet(<td style="cursor: pointer" onclick="displaySearch('(@uc@|@lc@).*','');highL(this)">@uc@@lc@</td>)@
-                        <td style="cursor: pointer" align="right" onclick="displaySearch('.*','');highL(this)">@commonlabel.all@</td>
+                       @alphabet(<td style="cursor: pointer" onclick="displaySearch('@uc@','');highL(this)">@uc@@lc@</td>)@
+                        <td style="cursor: pointer" align="right" onclick="displaySearch('','');highL(this)">@commonlabel.all@</td>
                      </tr>
                    </table>
                   </div>

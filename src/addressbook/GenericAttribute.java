@@ -63,6 +63,11 @@ abstract public class GenericAttribute implements XMLSaver {
 	
 	abstract public void update(Object[] params);
 	
+	public boolean contains(String pattern) {
+		return (value != null && value.contains(pattern)) ||
+				(description != null && description.contains(pattern));
+	}
+	
 	public String getDescription() {
 		return description;
 	}

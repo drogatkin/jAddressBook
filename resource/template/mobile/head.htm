@@ -24,6 +24,19 @@
      .titlerow {text-align: center;}
      .detailsrow {padding-left: 5%;}
      .linkcol {margin-right:5%;}
+     
+     @@media (prefers-color-scheme: dark) {
+            html {min-height:100%}
+		    body {
+		        height: 100%;
+		        background-color: black;
+		        color: #ddd;
+		        background-image: none;
+		        background: linear-gradient(#2c3840, #020202);
+		    }
+		    a {color: #cccccc;}
+            strong + br + span {color: #ccc;}
+	 }
   </style>
  <!--   <link rel="stylesheet" href="@contextpath@/styles.css" type="text/css" media="all"/>
  -->

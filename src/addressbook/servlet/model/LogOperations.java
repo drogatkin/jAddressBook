@@ -205,6 +205,11 @@ public class LogOperations extends AbstractOperations {
 			timeStamp = System.currentTimeMillis();
 		}
 		
+		@Override
+		public void update(Object[] params) {
+			
+		}
+		
 		public long getTime() {
 			return timeStamp;
 		}

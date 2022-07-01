@@ -29,7 +29,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
+import addressbook.Account;
 import addressbook.COI;
+import addressbook.Commentary;
 import addressbook.Contact;
 import addressbook.Folder;
 import addressbook.GenericAttribute;
@@ -42,7 +44,7 @@ public class GenericOperations<RT extends AbstractAttributeStorage> extends Abst
 	public void init(AddressBookProcessor abp) {
 	}
 
-	public List<RT> search1(String query, String folderName, FolderOperations folderOperations) {
+	public List<RT> search2(String query, String folderName, FolderOperations folderOperations) {
 		// TODO redefine API to provide a list of desirable types
 		List<Folder> folders = folderOperations.search(escapeMask(folderName), new Folder.FolderType[] {
 				Folder.FolderType.Contact, Folder.FolderType.Mixed });
@@ -91,14 +93,48 @@ public class GenericOperations<RT extends AbstractAttributeStorage> extends Abst
 		//System.err.println("Found fs:" + folderName + "\n" + folders);
 		if (folders == null)
 			return null;
-		return null;
+		List<RT> result = new ArrayList<RT>();
+		for (Folder folder : folders) {
+			if (folderName == null || folderName.equals(folder.toString())) {
+				folder_content: for (XMLSaver xs : (List<XMLSaver>) folder.getContent()) {
+					if (query == null || query.isBlank()) {
+						result.add((RT)xs);
+					} else if (xs instanceof Contact) {
+						Contact contact = (Contact) xs;
+						System.err.printf("Checking %s in %s%n", query, contact.getAttribute(Contact.NAME));
+						//new Exception("trace").printStackTrace();
+						if (contact.getAttribute(Contact.NAME) != null && contact.getAttribute(Contact.NAME).toString().contains(query)) 
+							result.add((RT)xs);
+						else { // check also for 
+							if (contact.getAccounts() != null)
+								for (Account acnt: contact.getAccounts()) {
+									if (acnt.contains(query)) {
+										result.add((RT)xs);
+										continue folder_content;
+									}
+								}
+							if (contact.getComments() != null)
+								for (Commentary comm: contact.getComments()) {
+									if (comm.contains(query)) {
+										result.add((RT)xs);
+										continue folder_content;
+									}
+								}
+						}
+					} else if (xs instanceof COI) {
+							result.add((RT)xs);
+					}
+				}
+			}
+		}
+		return result;
 	}
 
 	public RT getContact(FolderOperations fo, String folderName, String lastParName, String hashParName,
 			AddressBookProcessor abp) {
 		// find a record to update
 		String name = abp.getStringParameterValue(lastParName, "", 0);
-		List<RT> records = search1(".*" + escapeMask(name) + ".*", folderName, fo);
+		List<RT> records = search(name, folderName, fo);
 		int hash = hashParName==null?name.hashCode():abp.getIntParameterValue(hashParName, 0, 0);
 		//System.err.printf("Looking for '%s', hash: %d, in- %s%n", name, hash, folderName);
 		if (hash != 0) {

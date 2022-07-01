@@ -77,6 +77,12 @@ public class Account extends GenericAttribute {
 		setName((String)params[3]);
 		setLink((String)params[04]);
 	}
+	
+	@Override
+	public boolean contains(String pattern) {
+		return super.contains(pattern) || (account != null && account.contains(pattern)) ||
+				(accessUrl != null && accessUrl.contains(pattern));
+	}
 
 	public void setLink(String link) {
 		accessUrl = link;

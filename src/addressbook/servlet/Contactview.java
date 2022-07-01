@@ -578,7 +578,7 @@ public class Contactview extends AddressBookProcessor {
 			i++;
 		} while (true);
 		// delete
-		if (list != null && !list.isEmpty())
+		if (mobile && list != null && !list.isEmpty())
 			for(int il=list.size()-1; il > -1; il--) {
 				String del = getStringParameterValue(setName + il + "mark", null, 0);
 				if (del != null)

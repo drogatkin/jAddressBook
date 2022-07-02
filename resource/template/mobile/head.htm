@@ -37,6 +37,13 @@
 		    a {color: #cccccc;}
             strong + br + span {color: #ccc;}
             .drilled {color:#ddd;}
+            .edit_box {background-color:#2B6D72;}
+            .button-container a.anchor {background-color:#174144; color:#A8DDEF;}
+            .close_corn {color: #C6E8EA;}
+            input[type="text"],  input[type="password"], textarea {background-color:#232426; color:#ddd;}
+            input:autofill {background-color:#2A4673; color:#ddd;}
+            input[type="submit"] {background-color:#095C61; color:#E1F2F3; margin-top: 5px;}
+            .elebox {border-bottom: 1px solid #A8DDEF;  margin-top: 3px;}
 	 }
   </style>
  <!--   <link rel="stylesheet" href="@contextpath@/styles.css" type="text/css" media="all"/>
@@ -57,6 +64,26 @@
    function init() {
 	   if (typeof populateData == 'function')
 		   populateData();
+   }
+   
+   var HTMLUtils = new function() {
+       var rules = [
+           { expression: /&/g, replacement: '&amp;'  }, // keep this rule at first position
+           { expression: /</g, replacement: '&lt;'   },
+           { expression: />/g, replacement: '&gt;'   },
+           { expression: /"/g, replacement: '&quot;' },
+           { expression: /'/g, replacement: '&#039;' } // or  &#39;  or  &#0039;
+                                                       // &apos;  is not supported by IE8
+                                                       // &apos;  is not defined in HTML 4
+       ]
+       this.escape = function(html) {
+           var result = html;
+           for (var i = 0; i < rules.length; ++i) {
+               var rule = rules[i];
+               result = result.replace(rule.expression, rule.replacement);
+           }
+           return result;
+       }
    }
  </script>
  

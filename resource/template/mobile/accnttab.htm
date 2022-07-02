@@ -101,10 +101,10 @@
     	 const index = document.contactview.accountindex.value
     	 if (index) {
 	    	 // query selector https://drafts.csswg.org/selectors/
-	    	 document.querySelector('div#row'+index+' > div[class=contbox] > div').innerHTML = document.contactview.accountdescription.value
+	    	 document.querySelector('div#row'+index+' > div[class=contbox] > div').innerHTML = HTMLUtils.escape(document.contactview.accountdescription.value)
 	    	 document.querySelector('div#row'+index+' > div[class="linkcol"]').innerHTML = '<a target="accnt_accss" href="'+document.contactview.accountlink.value+'">&gt;</a>'
-	    	 document.querySelector('div#row'+index+' > div[class=contbox] > div[class=detailsrow]').innerHTML = document.contactview.accountname.value + ' '
-	    	 + document.contactview.accountvalue.value
+	    	 document.querySelector('div#row'+index+' > div[class=contbox] > div[class=detailsrow]').innerHTML = HTMLUtils.escape(document.contactview.accountname.value + ' '
+	    	 + document.contactview.accountvalue.value)
     	 } else {
     		 const ediv = document.createElement('DIV')
     		 ediv.className = 'elebox'
@@ -113,9 +113,9 @@
                 '<div class="contbox">' +
                 '  <div class="titlerow drilled" onclick="populateAccnt(\'' +
                 document.contactview.accountvalue.value.replace(/'/g, "\\'") + '\', \'\', '+newindex+')">' +
-                document.contactview.accountdescription.value + '</div>' +
-                 ' <div class="detailsrow">' + document.contactview.accountname.value + ' '
-    	    	 + document.contactview.accountvalue.value + '</div>' +
+                HTMLUtils.escape(document.contactview.accountdescription.value) + '</div>' +
+                 ' <div class="detailsrow">' + HTMLUtils.escape(document.contactview.accountname.value) + ' '
+    	    	 + HTMLUtils.escape(document.contactview.accountvalue.value) + '</div>' +
                 ' </div>' +
                 '<div class="linkcol"><a target="accnt_accss" href="' +
                 document.contactview.accountlink.value+'">&gt;</a></div>'

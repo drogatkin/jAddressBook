@@ -102,7 +102,7 @@
     	 if (index) {
 	    	 // query selector https://drafts.csswg.org/selectors/
 	    	 document.querySelector('div#row'+index+' > div[class=contbox] > div').innerHTML = HTMLUtils.escape(document.contactview.accountdescription.value)
-	    	 document.querySelector('div#row'+index+' > div[class="linkcol"]').innerHTML = '<a target="accnt_accss" href="'+document.contactview.accountlink.value+'">&gt;</a>'
+	    	 document.querySelector('div#row'+index+' > div[class="linkcol"]').innerHTML = '<a target="accnt_accss" href="'+document.contactview.accountlink.value.replace(/"/g, "%22")+'">&gt;</a>'
 	    	 document.querySelector('div#row'+index+' > div[class=contbox] > div[class=detailsrow]').innerHTML = HTMLUtils.escape(document.contactview.accountname.value + ' '
 	    	 + document.contactview.accountvalue.value)
     	 } else {
@@ -118,7 +118,7 @@
     	    	 + HTMLUtils.escape(document.contactview.accountvalue.value) + '</div>' +
                 ' </div>' +
                 '<div class="linkcol"><a target="accnt_accss" href="' +
-                document.contactview.accountlink.value+'">&gt;</a></div>'
+                document.contactview.accountlink.value.replace(/"/g, "%22")+'">&gt;</a></div>'
                // alert('inner:'+ediv.innerHTML)
             const ele = document.querySelector('div#accnt_form')
             ele.parentNode.insertBefore(ediv, ele)

@@ -9,11 +9,11 @@
 </tr>
 @tphone(
 <tr>
-  <td><input type="checkbox" name="tphonemark"></td>
+  <td><input type="checkbox" name="tphone@index@mark"></td>
   <td><input type="radio" name="tphonedefault" value="@index@" @element.isPreferable*()*{@true(checked)@}@></td>
   <td>@element.getType*()*@</td>
   <td><a href="tel:@element.getValue*()*@">@element.getDescription*()*@</a></td>
-  <td onclick="editPhone('@^element.getType*()*@', '@^element.getDescription*()*@', '@^element.getValue*()*@')">@element.getNormalized*()*@</td>  
+  <td onclick="editPhone('@^element.getType*()*@', '@^element.getDescription*()*@', '@^element.getValue*()*@', @index@)">@element.getNormalized*()*@</td>  
 </tr>
 )@
 </table>
@@ -28,20 +28,22 @@
    <div>@label.telephone@</div>
    <div><input type="text" name="tphonevalue" value=""></div>
    <input type="hidden" name="tphoneoldvalue" >
+   <input type="hidden" name="tphoneindex" >
    <div onclick="document.contactview['submit.y'].click()">@commonlabel.apply@</div>
 
 </div>
 <script>
-   function editPhone(t, d, v) {
+   function editPhone(t, d, v, ix) {
 	   document.contactview.tphonedescription.value=d;
 	   document.contactview.tphonevalue.value=v;
 	   document.contactview.tphonetype.selectedIndex = getIndex(document.contactview.tphonetype.options, t);
+	   document.contactview.tphoneindex.value=ix
 	   getElement('edit_phone').style.display ='';
    }
    function closeEdit() {
 	   getElement('edit_phone').style.display ='none';
    }
    function newPhone() {
-	   editPhone('','','');
+	   editPhone('','','', '');
    }
 </script>

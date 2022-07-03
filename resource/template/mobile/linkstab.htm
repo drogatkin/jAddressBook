@@ -1,5 +1,5 @@
 <div style="text-align:right" onclick="newLink()">@commonlabel.new@ @label.bookmark@</div>
-<table name="url" id="url">
+<table name="url" id="url" width="100%">
 <tr>
   <th>X</th>
   <th>@label.description@</th>
@@ -8,11 +8,11 @@
 </tr>
 @link(
 <tr>
-  <td><input type="checkbox" name="emailmark"></td>
+  <td><input type="checkbox" name="link@index@mark"></td>
   <td>@element.getDescription*()*@</td>
   <!-- here is data duplication in parameters, right solution just mark a row with id and got from there --> 
-  <td onclick="editLink('@^element.getDescription*()*@', '@^element.getValue*()*@')">@.element.getValue*()*@</td>  
-  <td><a target="_blank" href="@element.getNormalized*()*@">@commonlabel.go@</a></td>
+  <td style="max-width: 192px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" onclick="editLink('@^element.getDescription*()*@', '@^element.getValue*()*@', @index@)">@.element.getValue*()*@</td>  
+  <td align="right"><a target="_blank" href="@element.getNormalized*()*@">@commonlabel.go@</a></td>
 </tr>
 )@
 </table>
@@ -22,16 +22,18 @@
   <div>@label.description@<br/>
   <input type="text" name="linkdescription" value=""></div>
   <div>@label.url@<br/>
-  <input type="text" name="linkvalue"/></div>
+  <input type="text" name="linkvalue"></div>
+  <input type="hidden" name="linkindex"/>
   <div onclick="document.contactview['submit.y'].click()">@commonlabel.apply@</div>
 </div>
 <script>
     function newLink() {
-    	editLink('', 'http://');
+    	editLink('', 'https://', '');
     }
-    function editLink(d,l) {
+    function editLink(d,l,ix) {
     	document.contactview.linkdescription.value=d;
     	document.contactview.linkvalue.value=l;
+    	document.contactview.linkindex.value=ix
     	getElement('link_edit').style.display='';
     }
     function closeEdit() {

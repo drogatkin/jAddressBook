@@ -3,7 +3,7 @@
 <div id="dob">@label.dob@ <input type="text" name="dob" size="10" value="@contact.getDOB*()*?Dlabel.dobformat@">@label.dobformat@</div>
 </div>
 <div style="text-align:right" onclick="newAddr()">@commonlabel.new@ @label.address@</div>
-<table name="add" id="addr">
+<table name="add" id="addr" width="100%">
   <tr>
   <th>X</th>
   <th>@label.name@</th>
@@ -11,10 +11,10 @@
      <th>@commonlabel.map@</th>
      </tr>
    @address(<tr> 
-   <td><input type="checkbox" id="" /></td>
+   <td><input type="checkbox" name="address@index@mark" /></td>
    <td >@element.getDescription*()*@</td>
-   <td onclick="editAddr('@^element.getDescription*()*@', '@^element.getFormated*()*@')"><pre>@element.getFormated*()*@</pre></td>
-   <td><a target="_blank" href="http://maps.yahoo.com/maps_result?addr=@:element.street@&csz=@:element.city@,@element.state@+@element.zip@&country=us">@commonlabel.map@</a></td>
+   <td onclick="editAddr('@^element.getDescription*()*@', '@^element.getFormated*()*@', @index@)"><pre>@element.getFormated*()*@</pre></td>
+   <td align="right"><a target="_blank" href="https://maps.google.com/?q=@:element.street@,@:element.city@,@element.state@,@element.zip@">@commonlabel.map@</a></td>
    </tr>)@ 
 </table>
 
@@ -24,14 +24,16 @@
   <input type="text" name="addressdescription" value=""></div>
   <div>@label.description@<br/>
   <textarea name="addressvalue"  rows="5" style="width:100%"></textarea></div>
+  <input type="hidden" name="addressindex" value="">
   <div onclick="document.contactview['submit.y'].click()">@commonlabel.apply@</div>
 
 </div>
 
 <script>
-   function editAddr(d,a) {
+   function editAddr(d,a,i) {
 	   document.contactview.addressdescription.value=d;
 	   document.contactview.addressvalue.value=a;
+	   document.contactview.addressindex.value=i
 	   getElement('edit_addr').style.display='';
    }
    function newAddr() {

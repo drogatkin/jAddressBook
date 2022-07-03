@@ -7,9 +7,9 @@
   </tr>
   @chatid(
   <tr>
-    <td><input type="checkbox" name="chatidmark"></td>
+    <td><input type="checkbox" name="chatid@index@mark"></td>
     <td >@element.getType*()*@</td>
-    <td class="drilled" onClick="editChat(@^element.getTypeInt*()*@,'@^element.getDescription*()*@', '@^element.getValue*()*@', '@^element.getHost*()*@', '@^element.getRoom*()*@')">@element.getDescription*()*@</td>
+    <td class="drilled" onClick="editChat(@^element.getTypeInt*()*@,'@^element.getDescription*()*@', '@^element.getValue*()*@', '@^element.getHost*()*@', '@^element.getRoom*()*@', @index@)">@element.getDescription*()*@</td>
     <td>@element.getValue*()*@</td>
     <td>@element.getHost*()*@</td>
     <td>@element.getRoom*()*@</td>
@@ -30,7 +30,7 @@
    <div><input type="text" name="chatidhost" value=""></div>
    <div>@label.room@</div>
    <div><input type="text" name="chatidroom" value=""></div>
-   <input type="hidden" name="chatidoldvalue" >
+   <input type="hidden" name="chatidindex" >
    <div onclick="document.contactview['submit.y'].click()">@commonlabel.apply@</div>
 </div>
 <script>
@@ -38,14 +38,15 @@
 	   getElement('edit_chat').style.display='none';
    }
    function newSocial() {
-	   editChat(4, '', '', '', '');
+	   editChat(4, '', '', '', '', '');
    }
-   function editChat(t,d,i, h,r) {
+   function editChat(t,d,i, h,r,ix) {
 	   document.contactview.chatidtype.selectedIndex=t-1;
 	   document.contactview.chatiddescription.value=d;
 	   document.contactview.chatidvalue.value=i;
 	   document.contactview.chatidhost.value=h;
 	   document.contactview.chatidroom.value=r;
+	   document.contactview.chatidindex.value=ix
 	   getElement('edit_chat').style.display='';
    }
 </script>

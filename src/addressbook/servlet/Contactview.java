@@ -528,6 +528,7 @@ public class Contactview extends AddressBookProcessor {
 			    list.clear();
 		}
 		int di = getIntParameterValue(setName + "default", -1, 0);
+		//log("index for "+setName+" is "+di+" lst of "+list.size(), null);
 		int i = 0;
 		int hash = 0;
 		hash = getIntParameterValue(setName + i + "hash", -1, 0);
@@ -564,8 +565,10 @@ public class Contactview extends AddressBookProcessor {
 				} 
 				if (!updated)
 					contact.add(ga );
-				if (di == i)
+				if (di == i) {
 					ga.setPreferable(true);
+					//log("set def for "+ga, null);
+				}
 			} catch (IllegalArgumentException e) {
 				log("", e);
 			} catch (InstantiationException e) {
@@ -578,12 +581,15 @@ public class Contactview extends AddressBookProcessor {
 			i++;
 		} while (true);
 		// delete
-		if (mobile && list != null && !list.isEmpty())
+		if (mobile && list != null && !list.isEmpty()) {
 			for(int il=list.size()-1; il > -1; il--) {
 				String del = getStringParameterValue(setName + il + "mark", null, 0);
 				if (del != null)
 					list.remove(il);
+				else 
+					list.get(il).setPreferable(di == il);
 			}
+		}
 	}
 	/*
 	 * public static class Tab { public String name; public String label; public

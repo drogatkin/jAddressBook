@@ -7,42 +7,41 @@ other electronic or paper folders currently used for keeping and managing person
 records. They are a contact information, useful notes, to do lists, URLs, thoughts, accounts 
 details, insurance information,
 passwords, shopping lists, warranties, businesses locations and addresses, crypto wallets, and many other 
-records like (assets & inventory, budgets, chores, creative corner, diet, financial 
+records like (assets & inventory, budgets, chores, a creative corner, a diet, financial 
 records,
- fitness, goals & plans, journal, media library, medical records, projects, recipes, 
- restaurants, services & maintenance, special moments, vehicle maintenance,
- veterinarian records, wine cellar and other information helping us do not get lost.
+the fitness, goals & plans, the journal, a media library, medical records, projects, recipes,  restaurants, services & maintenance, special moments, a vehicle maintenance,
+veterinarian records, a wine cellar and other information helping us do not get lost.
 
 It is good if all these records can be stored somewhere and then retrieved as needed.
 
- jAddressBook helps to keep different contact and address information in one place.
+jAddressBook helps to keep different contact and address information in one place.
   Distinctive features of the program include:
-    - Java based multi platform open source codebase allowing to run it
-      virtually anywhere including mobile devices.
-    - Web interface with centralized server and shared folders.
-    - Web UI automatically adjustable to size of browser mobile or standard.
-    - Can run directly on mobile platfroms as Android under app server as Atjeews. 
-    - XML based format keeping address book information made it never obsolete
-      and easy migrated between different applications. 
-    - No any restriction on format and number personal and contacting
-      information. For example, person can have unlimited numbers of
-      telephone numbers, addresses, e-mails, comments and so on.
-    - Intuitive, and bright user interface. 
-    - Possible using as local, as a remote data storage to easy access
-      your address book from any location. Most advanced security
-      technology protect your data to be captured or stolen.
-    - Easy integration with any existing software to obtain address book
-      information, as e-mail client, messengers, chat client, web browsers. 
-    - Low costs software, it's free for personal using. 
-    - Possibility to build bookmarks and certificate information to fast
-      access to favorite Web sites.
-    - Powerful passwords management capabilities.
-    - National language supported for everything.
-    - Keeping user profile and possibility to export it as a record to
-      another address book. Only desired field can be exported.
-    - Import user profiles from other address book program including popular,
-      like Outlook.
-    - Synchronization multiple local and remote data storage.
+* Java based multi platform open source codebase allowing to run it
+virtually anywhere including mobile devices.
+* Web interface with centralized server and shared folders.
+* Web UI automatically adjustable to size of browser mobile or standard.
+* Can run directly on mobile platforms as Android under app server as Atjeews. 
+* XML based format keeping address book information made it never obsolete
+and easy migrated between different applications. 
+* No any restriction on format and number personal and contacting
+information. For example, person can have unlimited numbers of
+telephone numbers, addresses, e-mails, comments and so on.
+* An intuitive, and bright user interface. 
+* Possible using as a local, as a remote data storage to easy access
+your address book from any location. Most advanced security
+technology protect your data to be captured or stolen.
+* Easy integration with any existing software to obtain address book
+information, as e-mail client, messengers, chat client, web browsers. 
+* Low costs software, it's free for personal using. 
+* Possibility to build bookmarks and certificate information to fast
+access to favorite Web sites.
+* Powerful passwords management capabilities.
+*National language supported for everything.
+* Keeping user profile and possibility to export it as a record to
+another address book. Only desired field can be exported.
+* Import user profiles from other address book program including popular,
+like Outlook.
+* Synchronization multiple local and remote data storage.
 
 
 ## History
@@ -69,8 +68,10 @@ and then the system will offer you all matching criteria records.
 4. Zero trust security, so if data are not stored locally, then a public storage never gets actual data, only an encrypted form.
 
 
-## Other thoughts
+## Version and distribution
 
-I am open to work on any enhancements and use cases.
+The product has very limited dependencies. It supposes that a user
+build it on his/her own. The current version is 1.8 and 1.9 is in testing.
+When the testing has finished, it will be distributed on the GitHub.
 
 

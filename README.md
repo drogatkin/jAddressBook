@@ -36,7 +36,7 @@ information, as e-mail client, messengers, chat client, web browsers.
 * Possibility to build bookmarks and certificate information to fast
 access to favorite Web sites.
 * Powerful passwords management capabilities.
-*National language supported for everything.
+* National language supported for everything.
 * Keeping user profile and possibility to export it as a record to
 another address book. Only desired field can be exported.
 * Import user profiles from other address book program including popular,

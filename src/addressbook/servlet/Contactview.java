@@ -586,7 +586,7 @@ public class Contactview extends AddressBookProcessor {
 				String del = getStringParameterValue(setName + il + "mark", null, 0);
 				if (del != null)
 					list.remove(il);
-				else 
+				else if (di >= 0)
 					list.get(il).setPreferable(di == il);
 			}
 		}

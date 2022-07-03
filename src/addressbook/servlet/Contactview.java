@@ -64,7 +64,7 @@ public class Contactview extends AddressBookProcessor {
 
 	public static final String FILENAME = "filename";
 
-	static final String[] TABNAMES = { "mail", "phone", "notes", "links", "accnt", "address", "attach", "chat", "secret" };
+	static final String[] TABNAMES = { "mails", "phones", "notes", "links", "accnts", "addresses", "attach", "chat", "secret" };
 
 	private static final String CONTACT = "CONTACT";
 

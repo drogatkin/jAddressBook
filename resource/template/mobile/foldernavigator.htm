@@ -4,12 +4,27 @@
 @%'mobile/head.htm'@
 <script>
  function createFolder() {
+	 
+	 hideFolder()
  }
- </script>
+ function showFolder() {
+	 getElement('folder_edit').style.display=''
+ }
+ function hideFolder() {
+	 getElement('folder_edit').style.display='none'
+ }
+</script>
 <table><tr>
     <td><div><a href="Foldernavigator">@addressbook.VersionConstant.PROGRAMNAME@</a></div></td>
-    <td><a href="javascript:void(0)" onclick="createFolder()">@commonlabel.new@</a></td>
+    <td><a href="javascript:void(0)" onclick="showFolder()">@commonlabel.new@</a></td>
   </tr></table>
+  
+ <div id="folder_edit" class="edit_box" style="display:none;width:90%">
+  <div class="close_corn" onclick="hideFolder()">@commonlabel.close@</div>
+  <div>@label.name@<br/>
+  <input type="text" name="foldername" value=""></div>
+  <div onclick="createFolder()">@commonlabel.apply@</div>
+</div>
 
 <div class="button-container hovers">
 <table width="100%">

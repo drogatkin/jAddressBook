@@ -61,6 +61,8 @@ public class Abfrontview extends AddressBookProcessor {
 	public static final String P_NEWNODE = "newnode";
 	
 	public static final String  V_OPER = "oper";
+	
+	public static final String  V_PATH = "path";
 
 	@Override
 	protected Map getModel() {
@@ -201,13 +203,20 @@ public class Abfrontview extends AddressBookProcessor {
 				if (contact.getChats() != null && contact.getChats().size() > 0)
 					m.put(CHAT, contact.getDefault(contact.getChats()));
 				lr.add(m);
-			} else {
+			} else if (storage instanceof AbstractAttributeStorage) {
 				Map<String, Object> m = new HashMap<String, Object>();
 				m.put(V_CONTACT, storage);
-				m.put(NAME, new Idable(storage.getStringAttribute(GenericAttribute.VALUE)));
+				m.put(NAME, new Idable(((AbstractAttributeStorage)storage).getStringAttribute(GenericAttribute.VALUE)));
 				m.put(V_OPER, "editCollection");
 				lr.add(m);
-			}
+			} /*else if (storage instanceof Folder) {
+				Map<String, Object> m = new HashMap<String, Object>();
+				m.put(V_CONTACT, storage);
+				m.put(NAME, ((Folder)storage).getShortName());
+				m.put(V_OPER, "browseFolder");
+				m.put(V_PATH, storage);
+				lr.add(m);
+			}*/
 		}
 		if (result == null)
 			result = new HashMap();

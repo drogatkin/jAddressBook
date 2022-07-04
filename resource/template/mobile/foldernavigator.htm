@@ -4,8 +4,15 @@
 @%'mobile/head.htm'@
 <script>
  function createFolder() {
+	 // TODO Add escaping for new folder name
+	 makeGenericAjaxCall("Abfrontview/ajax/TreeChange", 'nodeid=@:element@&newnode='+document.querySelector('input').value+'&mode=Add', true, function(html) {
+		 if (html) {
+			 hideFolder()
+			 window.location.reload()
+		 } 
+	 })
 	 
-	 hideFolder()
+	
  }
  function showFolder() {
 	 getElement('folder_edit').style.display=''

@@ -111,7 +111,8 @@ public class Contactview extends AddressBookProcessor {
 		}
 		req.setAttribute(V_CIPHER, getCipherOperations()); // to init()
 		addTabsMenu(result);
-		result.put("modeview", "mobile/" + getStringParameterValue("tab", "mail", 0) + "tab.htm");
+		result.put("modeview", "mobile/" + getStringParameterValue("tab", TABNAMES[0], 0) + "tab.htm");
+		result.put("tabname", getStringParameterValue("tab", TABNAMES[0], 0));
 		return result;
 	}
 

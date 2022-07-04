@@ -1,3 +1,4 @@
+
 <div style="text-align:right" onclick="newAccount()">@commonlabel.new@ @label.account@</div>
    @account(
       <div class="elebox" id="row@index@">
@@ -124,5 +125,30 @@
             ele.parentNode.insertBefore(ediv, ele)
             document.contactview.accountindex.value = newindex
     	 }
+     }
+     
+     function searchaccnts(searchbox) {
+    	 const query = searchbox.value.toLowerCase()
+   	  const tab = document.querySelector('table#account')
+   	  var mark
+   		
+   		for (var i = 0, row; row = tab.rows[i]; i++) {
+   			mark = 0
+   			if (query)
+   		       for (var j = 0, col; col = row.cells[j]; j++) {
+   			       if (col.nodeName === 'TH')
+   	                   break
+   		           if (col.innerHTML.toLowerCase().includes(query)) {
+   	                      mark = 0
+   			              break
+   		           } else {
+   			          mark = 1
+   		           }
+   		       }  
+   	       if (mark)
+   	           row.style.display = 'none'
+   	       else
+   	          row.style.display = ''
+   	    }
      }
  </script>

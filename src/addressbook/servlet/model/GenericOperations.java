@@ -97,6 +97,8 @@ public class GenericOperations<RT extends AbstractAttributeStorage> extends Abst
 		for (Folder folder : folders) {
 			if (folderName == null || folderName.equals(folder.toString())) {
 				folder_content: for (XMLSaver xs : (List<XMLSaver>) folder.getContent()) {
+					if (xs instanceof AbstractAttributeStorage == false)
+						continue; // do not add folders for now
 					if (query == null || query.isBlank()) {
 						result.add((RT)xs);
 					} else if (xs instanceof Contact) {

@@ -30,7 +30,7 @@
 			   row.insertCell(4);
 			   cell1.innerHTML='<input type="checkbox" name="deletepicture" value="'+data1[r].ix+'"/>';
 			   if (data1[r].mimetype == 'image') {
-				   cell4.innerHTML='<img src="Pictureloader?value='+encodeURIComponent(data1[r].fileid)+'&index='+data1[r].ix+'" border="0">';
+				   cell4.innerHTML='<img src="Pictureloader?value='+encodeURIComponent(data1[r].fileid)+'&index='+data1[r].ix+'" style="max-width:800px; max-height:600px;">';
 			   } else {
 				   cell4.innerHTML='<a href="Pictureloader?value='+encodeURIComponent(data1[r].fileid)+'&index='+data1[r].ix+'" target="_blank">@commonlabel.getthem@</a>';
 			   }

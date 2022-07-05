@@ -185,7 +185,7 @@
    function markUploaded(p) {
        var res = new Function("return "+p)();
        var pics = document.getElementById("picture_holder");
-       var picim = document.createElement('<img src="Pictureloader?value='+res.value+'&index='+res.ix+'" border="0" alt="'+res.comment+'">');
+       var picim = document.createElement('<img src="Pictureloader?value='+res.value+'&index='+res.ix+'" style="max-width:800px; max-height:600px;" alt="'+res.comment+'">');
        pics.insertAdjacentElement("beforeEnd", picim);
        pics.insertAdjacentHTML("beforeEnd",res.comment); 
        pics.insertAdjacentElement("beforeEnd", document.createElement('<input type="checkbox" name="deletepicture" value="'+res.ix+'">'));
@@ -246,7 +246,7 @@
 @picture(
  <div>
    @element.getType*()*{
-   @image(<img src="Pictureloader?value=@:element.getValue*()*@&index=@index@" border="0">
+   @image(<img src="Pictureloader?value=@:element.getValue*()*@&index=@index@" style="max-width:800px; max-height:600px;">
    @element.getDescription*()*@)@
    @(<a href="Pictureloader?value=@:element.getValue*()*@&index=@index@" target="_blank">@element.getDescription*()*@ </a>)@}@
     <input type="checkbox" name="deletepicture" value="@index@">X

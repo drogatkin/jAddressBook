@@ -22,7 +22,7 @@
  }
 </script>
 <table><tr>
-    <td><div><a href="Foldernavigator?nodeid=@parent@">@parent@</a></div></td>
+    <td><div><a href="Foldernavigator?nodeid=@parent@">@parent{@""(@addressbook.VersionConstant.PROGRAMNAME@)@ @(@parent@)@}@</a></div></td>
     <td><a href="javascript:void(0)" onclick="showFolder()">@commonlabel.new@</a></td>
   </tr></table>
   
@@ -41,7 +41,7 @@
        <a href="Abfrontview?nodeid=@:element@" class="anchor button">@element@</a>
      </td>
     <td>
-       <a href="Foldernavigator?nodeid=@:element@" class="anchor button">&gt;</a>
+  	  <a href="Foldernavigator?nodeid=@:element@" class="anchor button">&gt;</a>
     </td>
   </tr>
 )@

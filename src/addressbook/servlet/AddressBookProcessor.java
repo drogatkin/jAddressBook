@@ -104,11 +104,9 @@ public abstract class AddressBookProcessor extends BasePageService {
 
 	public static final String HV_MEMBER = "member";
 	
-	public static final String HV_APP = "app";
+	public static final String HV_PARENT = "parent";
 	
-	public static final String HV_VERSION = "version";
-	
-	public static final String HV_COPYRIGHT = "copyright";
+	//public static final String HV_APP = "app";
 
 	public static final String USERRECORD = "addressbook.servlet.user_records";
 
@@ -325,9 +323,6 @@ public abstract class AddressBookProcessor extends BasePageService {
 				// req.setAttribute("commonlabel",
 				// _pageData.get("commonlabel"));
 				_pageData.put(Variable.PAGE_TITLE, getTittle());
-				_pageData.put(HV_VERSION, VersionConstant.VERSION);
-				_pageData.put(HV_APP, VersionConstant.PROGRAMNAME);
-				_pageData.put(HV_COPYRIGHT, VersionConstant.COPYRIGHT); // maybe just put the struct
 			} catch (ResourceException e) {
 				log("No common res found:" + e, null);
 			}

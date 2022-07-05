@@ -18,6 +18,7 @@ public class Foldernavigator extends AddressBookProcessor {
 			model.put(P_FOLDER, getFolderOperations().search("", null));
 		else
 			model.put(P_FOLDER, getFolderOperations().search(parentFolderPath, null));
+		model.put(HV_PARENT, parentFolderPath);
 		return model;
 	}
 

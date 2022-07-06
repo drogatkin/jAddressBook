@@ -71,7 +71,7 @@ and then the system will offer you all matching criteria records.
 ## Version and distribution
 
 The product has very limited dependencies. It supposes that a user
-build it on his/her own. The current version is 1.8 and 1.9 is in testing.
-When the testing has finished, it will be distributed on the GitHub.
-
+build it on his/her own. The current version is 1.9.
+War file is provided, however, I recommend to edit [jaddressbook.properties](https://github.com/drogatkin/jAddressBook/blob/master/resource/config/jaddressbook.properties)
+to specify desired configuration and features of the jAdressBook.
 

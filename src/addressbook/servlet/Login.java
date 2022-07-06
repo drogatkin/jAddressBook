@@ -113,7 +113,7 @@ public class Login extends AddressBookProcessor {
 				// log out loging has to be session listener
 			} else {
 					Thread.sleep(3*1000); // to avoid brute force attack
-					if(up.getStringAttribute(UserProfile.SECRET_ANSWER) != null) {
+					if(up.getSecretAnswerHash() != null) {
 						Map result = fillWithForm(createErrorMap("error_password"), NAME);
 						result.put("RECOVER", "1");
 						return result;

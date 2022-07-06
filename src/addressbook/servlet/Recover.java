@@ -34,7 +34,7 @@ public class Recover extends AddressBookProcessor {
 			// TODO change to store and validate an answer hash
 			if (up.getStringAttribute(UserProfile.SECRET_QUESTION).equals(up.getStringAttribute(UserProfile.SECRET_QUESTION).substring(0, 3)
 					+getStringParameterValue(UserProfile.SECRET_QUESTION, "", 0)) 
-					&& up.getStringAttribute(UserProfile.SECRET_ANSWER).equals(getStringParameterValue(UserProfile.SECRET_ANSWER, "", 0))) {
+					&& up.matchSecretAnswer(getStringParameterValue(Registry.SECRET_ANSWER_PARAM, "", 0))) {
 				setAllowed(true);
 				Login.logged(this,  up);
 			return null;

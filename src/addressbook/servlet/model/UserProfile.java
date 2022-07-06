@@ -32,7 +32,7 @@ public class UserProfile extends AbstractAttributeStorage {
     public static final String EMAIL = "email";
     private static final String PASSWORD = "password";
     public static final String SECRET_QUESTION = "secret_question";
-    public static final String SECRET_ANSWER = "secret_answer";
+    private static final String SECRET_ANSWER = "secret_answer";
     public static final String ACCESS_KEY = "access_key";
     //public static final String SIGANTURE = "signature";
     public static final String ADDEDON = "added_on";
@@ -63,5 +63,20 @@ public class UserProfile extends AbstractAttributeStorage {
 	
 	public String getPasswordHash() {
 		return getStringAttribute(PASSWORD);
+	}
+	
+	public void setSecretAnswer(String answer) {
+		if (answer != null && !answer.isEmpty())
+			setStringAttribute(SECRET_ANSWER, BCrypt.hashpw(answer, BCrypt.gensalt()));
+		else
+			setAttribute(SECRET_ANSWER, null);
+	}
+	
+	public boolean matchSecretAnswer(String answer) {
+		return BCrypt.checkpw(answer, getStringAttribute(SECRET_ANSWER));
+	}
+	
+	public String getSecretAnswerHash() {
+		return getStringAttribute(SECRET_ANSWER);
 	}
 }

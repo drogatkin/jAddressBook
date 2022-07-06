@@ -47,6 +47,7 @@ import static addressbook.servlet.model.UserProfile.*;
 
 public class Registry extends AddressBookProcessor {
 	static final String P_CHALLENGE_TOKEN = "challengetoken";
+	static final String  SECRET_ANSWER_PARAM = "secret_answer";
 
 	protected Map getModel() {
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -140,7 +141,10 @@ public class Registry extends AddressBookProcessor {
 				// TODO check if e-mail changed than initiate validation
 				// procedure with account suspension
 				fillWithForm(up, EMAIL, LANGUAGE, TIMEZONE, SECRET_QUESTION);
-				fillWithFormFilled(up, ACCESS_KEY, SECRET_ANSWER);
+				fillWithFormFilled(up, ACCESS_KEY);
+				String secretAnswer = getStringParameterValue(SECRET_ANSWER_PARAM, "", 0);
+				if (!secretAnswer.isEmpty())
+					up.setSecretAnswer(secretAnswer);
 				password = getStringParameterValue(Login.PASSWORD_PARAM, "", 0);
 				if (!password.isEmpty())
 					up.setPassword(password);

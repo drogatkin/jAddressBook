@@ -460,9 +460,10 @@ public abstract class AddressBookProcessor extends BasePageService {
 				if (webdir != null)
 					return new File(webdir).getParent();
 				// System.out.println("No datat root ");
-			}
+			} 
 			dataRoot = System.getProperty("user.home");
-		}
+		} else
+			dataRoot = dataRoot.trim();
 
 		return dataRoot;
 	}

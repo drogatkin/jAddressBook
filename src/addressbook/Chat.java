@@ -36,7 +36,7 @@ public class Chat extends GenericAttribute {
 	public static final int MSNGR_TWITR = 5;
 	public static final int MSNGR_LNKDIN = 6;
 	public static final int MAX_CHAT_TYPE = MSNGR_LNKDIN;
-	public static final String [] MNEMO = {"IRC", "ICQ", "MSNGR", "FB", "TWITR", "LNKDIN"};
+	public static final String [] MNEMO = {"IRC", "ICQ", "MSNGR", "FB", "TWITR", "LNKDIN", "TELEGRM"};
 	
 	protected String host, room;
 	

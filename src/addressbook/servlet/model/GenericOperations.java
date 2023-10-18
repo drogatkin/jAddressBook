@@ -103,7 +103,7 @@ public class GenericOperations<RT extends AbstractAttributeStorage> extends Abst
 						result.add((RT)xs);
 					} else if (xs instanceof Contact) {
 						Contact contact = (Contact) xs;
-						System.err.printf("Checking %s in %s%n", query, contact.getAttribute(Contact.NAME));
+						//System.err.printf("Checking %s in %s%n", query, contact.getAttribute(Contact.NAME));
 						//new Exception("trace").printStackTrace();
 						if (contact.getAttribute(Contact.NAME) != null && contact.getAttribute(Contact.NAME).toString().contains(query)) 
 							result.add((RT)xs);

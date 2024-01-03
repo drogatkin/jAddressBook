@@ -37,7 +37,7 @@ public interface VersionConstant {
 
 	public static final String DEDICATED = "E. B.";
 
-	public static final String COPYRIGHT = "Copyright \u00a9 2000-2023 Dmitriy Rogatkin\n All rights reserved.";
+	public static final String COPYRIGHT = "Copyright \u00a9 2000-2024 Dmitriy Rogatkin\n All rights reserved.";
 
-	public static final int BUILD = 67;
+	public static final int BUILD = 68;
 }

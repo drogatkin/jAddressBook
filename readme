@@ -72,7 +72,7 @@
      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
   If you don't have preinstalled Java VM on you computer, then you have to do
-  that. In depending on your OS, you can download the latest Oracle's JRE 1.7 from
+  that. In depending on your OS, you can download the latest Oracle's JRE 17 (18) from
  http://www.oracle.com/technetwork/java/javase/downloads/index.html 
   Note that no JVM installation required if you are already on mobile 
   platfrom such as Android. Using Arch Linux and Orcale ARM HFP Java 8 is recommended
@@ -84,7 +84,7 @@
   of this program, please contact Dmitriy Rogatkin at jAddressBook@gmail.com.
   Notice, that the author provides the full source code.
   A Web site where you can find more information about this program,
-  including the latest build is: http://jaddressbook.sourceforge.net/ .
+  including the latest build is: https://github.com/drogatkin/jAddressBook .
 
     The distribution status of the program
     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

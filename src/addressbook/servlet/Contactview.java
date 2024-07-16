@@ -30,6 +30,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -166,11 +168,11 @@ public class Contactview extends AddressBookProcessor {
 		updateSet(contact, contact.getLinks(), BOOKMARK, Link.class, true);
 		try {
 			log("Used format:" + getResourceString(R_DOB_FORMAT, "MM/dd/yyyy"), null);
-			contact.setDOB(new SimpleDateFormat(getResourceString(R_DOB_FORMAT, "MM/dd/yyyy"))
-					.parse(getStringParameterValue(DOB, null, 0)));
+			contact.setDOB(LocalDate.from(DateTimeFormatter.ofPattern(getResourceString(R_DOB_FORMAT, "MM/dd/yyyy"))
+					.parse(getStringParameterValue(DOB, null, 0))));
 		} catch (NullPointerException npe) {
 			contact.setDOB(null);
-		} catch (ParseException e) {
+		} catch (Exception e) {
 		}
 		contact.setTitle(getStringParameterValue(TITLE, "", 0));
 		// TODO replace with BaseFormProcessor.Attachment

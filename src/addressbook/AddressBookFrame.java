@@ -57,6 +57,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -574,8 +576,8 @@ public class AddressBookFrame extends JFrame implements ActionListener, ServiceP
 											String b = csv.getString(fn);
 											if (b != null)
 												try {
-													c.setDOB(new SimpleDateFormat("MM/dd/yy").parse(b));
-												} catch (ParseException pe) {
+													c.setDOB(LocalDate.from(DateTimeFormatter.ofPattern("MM/dd/yy").parse(b)));
+												} catch (Exception pe) {
 												}
 										}
 									}

@@ -29,6 +29,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -71,8 +73,8 @@ public class ContactFrame extends JFrame implements ActionListener, ContactConst
 	final static EMail NEW_EMAIL_ENTRY = new EMail(EMAIL_PAT, NEW_PAT);
 
 	final static Telephone NEW_PHONE_ENTRY = new Telephone(PHONE_PAT, NEW_PAT);
-
-	final static SimpleDateFormat DOB_FMT = new SimpleDateFormat("MM-dd-yyyy");
+	
+	final static DateTimeFormatter DOB_FMT = DateTimeFormatter.ofPattern("MM-dd-yyyy");
 
 	ContactFrame(AddressBookFrame _abf) {
 		this(_abf, -1);
@@ -151,10 +153,10 @@ public class ContactFrame extends JFrame implements ActionListener, ContactConst
 		if (contact.getComments() != null)
 			contact.getComments().clear();
 		contact.add(ta_cmnt.getText());
-		try {
-			contact.setDOB(DOB_FMT.parse(dob.getText()));
-		} catch (java.text.ParseException pe) {
-		}
+		//try {
+			contact.setDOB(LocalDate.from(DOB_FMT.parse(dob.getText())));
+		////} catch (java.text.ParseException pe) {
+		//}
 		if (contact.getAddresses() != null)
 			contact.getAddresses().clear();
 		for (int i = 0; i < addrs.getTabCount(); i++) {
@@ -562,7 +564,7 @@ public class ContactFrame extends JFrame implements ActionListener, ContactConst
 			add(new JLabel(AddressBookResources.LABEL_COMMENT), "0,9,1");
 			add(new JScrollPane(ta_cmnt = new JTextArea()), "1,9,3,2");
 			if (contact != null) {
-				Date dateOB = contact.getDOB();
+				LocalDate dateOB = contact.getDOB();
 				if (dateOB != null)
 					dob.setText(DOB_FMT.format(dateOB));
 				List elements = contact.getComments();

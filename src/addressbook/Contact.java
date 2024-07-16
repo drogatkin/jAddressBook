@@ -28,6 +28,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -71,14 +72,14 @@ public class Contact extends AbstractAttributeStorage implements XMLSaver {
 
 	Name name;
 	
-	// other names this person can be known (actually it may include maiden names, pseudonims and so on)
+	// other names this person can be known (actually it may include maiden names, aliases and so on)
 	List<Name> otherNames;
 
 	String title; // TODO convert to list, because multiple titles possible
 	
 	String language; // TODO a contact can speak more than one lang, consider that
 
-	Date dob;
+	LocalDate dob;  // convert it to tuple yy,mm,dd
 
 	List addresses, emails, links, chats, pgps;
 
@@ -113,7 +114,7 @@ public class Contact extends AbstractAttributeStorage implements XMLSaver {
 			name = (Name) _value;
 	}
 
-	public void setDOB(Date _date) {
+	public void setDOB(LocalDate _date) {
 		dob = _date;
 	}
 
@@ -121,7 +122,7 @@ public class Contact extends AbstractAttributeStorage implements XMLSaver {
 		return createdOn;
 	}
 
-	public Date getDOB() {
+	public LocalDate getDOB() {
 		return dob;
 	}
 

@@ -30,6 +30,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
@@ -445,10 +446,9 @@ public class DataBookIO {
 			} else if (DOB_TAG.equals(_tag)) {
 				Calendar cal = Calendar.getInstance();
 				try {
-					cal.set(Integer.parseInt(_attrs.getValue(YEAR_ATTR)),
-							Integer.parseInt(_attrs.getValue(MONTH_ATTR)) - 1, Integer.parseInt(_attrs
-									.getValue(DAY_ATTR)));
-					contact.setDOB(cal.getTime());
+					contact.setDOB(LocalDate.of(Integer.parseInt(_attrs.getValue(YEAR_ATTR)),
+							Integer.parseInt(_attrs.getValue(MONTH_ATTR)), Integer.parseInt(_attrs
+									.getValue(DAY_ATTR))));
 				} catch (Exception e) { // number format & null pointer
 				}
 			} else if (NICK_TAG.equals(_tag)) {

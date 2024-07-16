@@ -167,12 +167,13 @@ public class Contactview extends AddressBookProcessor {
 		}
 		updateSet(contact, contact.getLinks(), BOOKMARK, Link.class, true);
 		try {
-			log("Used format:" + getResourceString(R_DOB_FORMAT, "MM/dd/yyyy"), null);
-			contact.setDOB(LocalDate.from(DateTimeFormatter.ofPattern(getResourceString(R_DOB_FORMAT, "MM/dd/yyyy"))
+			log("Used format:" + getResourceString(R_DOB_FORMAT, "M/d/yyyy"), null);
+			contact.setDOB(LocalDate.from(DateTimeFormatter.ofPattern(getResourceString(R_DOB_FORMAT, "M/d/yyyy"))
 					.parse(getStringParameterValue(DOB, null, 0))));
 		} catch (NullPointerException npe) {
 			contact.setDOB(null);
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		contact.setTitle(getStringParameterValue(TITLE, "", 0));
 		// TODO replace with BaseFormProcessor.Attachment

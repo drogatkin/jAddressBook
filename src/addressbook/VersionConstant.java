@@ -33,11 +33,11 @@ package addressbook;
 public interface VersionConstant {
 	public static final String PROGRAMNAME = "jAddressBook";
 
-	public static final String VERSION = "version 1.11";
+	public static final String VERSION = "version 1.12";
 
 	public static final String DEDICATED = "E. B.";
 
 	public static final String COPYRIGHT = "Copyright \u00a9 2000-2024 Dmitriy Rogatkin\n All rights reserved.";
 
-	public static final int BUILD = 68;
+	public static final int BUILD = 69;
 }

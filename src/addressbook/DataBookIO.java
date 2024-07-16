@@ -444,12 +444,12 @@ public class DataBookIO {
 					comment = _attrs.getValue(COMMENT_ATTR);
 				buffer.setLength(0);
 			} else if (DOB_TAG.equals(_tag)) {
-				Calendar cal = Calendar.getInstance();
 				try {
 					contact.setDOB(LocalDate.of(Integer.parseInt(_attrs.getValue(YEAR_ATTR)),
 							Integer.parseInt(_attrs.getValue(MONTH_ATTR)), Integer.parseInt(_attrs
 									.getValue(DAY_ATTR))));
 				} catch (Exception e) { // number format & null pointer
+					e.printStackTrace();
 				}
 			} else if (NICK_TAG.equals(_tag)) {
 				try {

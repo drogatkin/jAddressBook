@@ -29,6 +29,7 @@ import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -388,10 +389,10 @@ public class Contact extends AbstractAttributeStorage implements XMLSaver {
 
 	}
 
-	final static SimpleDateFormat DOB_XML_FMT = new SimpleDateFormat(
+	final static DateTimeFormatter DOB_XML_FMT = DateTimeFormatter.ofPattern(
 			"'YEAR=\"'yyyy'\" MONTH=\"'MM'\" DAY=\"'dd'\"'");
 
-	final static SimpleDateFormat DOB_ISO8601_FMT = new SimpleDateFormat("yyyy-MM-dd");
+	final static DateTimeFormatter DOB_ISO8601_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	final static SimpleDateFormat REV_ISO8601_FMT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 

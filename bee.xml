@@ -7,11 +7,11 @@
       <!ENTITY package  "addressbook">
       <!ENTITY project  "AddressBook">
       <!ENTITY projects_root "../">
-      <!ENTITY deploy_directory "&projects_root;TJWS2/1.x/webapps">
+      <!ENTITY deploy_directory "&projects_root;TJWS/1.x/webapps">
       ]>
 <!-- $Id: bee.xml,v 1.29 2015/10/24 06:35:28 cvs Exp $
    make file used for &project; and project
-   Copyright (c) 2022 Dmitriy Rogatkin    -->
+   Copyright (c) 2025 Dmitriy Rogatkin    -->
 
 <bee name="&project;" type="project">
   &env;
@@ -202,7 +202,7 @@ Location=./data/datastorage.xml
               <parameter value="&build_directory;/&target_name;.jar" type="file"/>
            </function>
     </dependency>
-    <task name="jar_do" code="sun.tools.jar.Main">
+    <task name="jar_do" code="sun.tools.jar.Main" tool="jar">
        <parameter value="-cmf"/>
        <parameter value="src/manifest.mf" type="file"/>
        <parameter value="&build_directory;/&target_name;.jar" type="file"/>
@@ -431,7 +431,6 @@ Location=./data/datastorage.xml
   </expression>
 
   <target name="war" dir="PROJECT_HOME">
-    <!-- todo consider generation of jnlp dynamically based on target site host -->
     <!-- todo add dependency on signing and signed files -->
     <dependency target="&deploy_directory;"/>
     <dependency target="jar"/>

@@ -284,7 +284,8 @@ public abstract class AddressBookProcessor extends BasePageService {
 	protected void start() {
 		String httpAgent = req.getHeader(Static.HTTP.USER_AGENT);
 		mobile = httpAgent!= null && (httpAgent.indexOf("Mobile") > 0 ||
-				httpAgent.indexOf("Tablet") > 0 || httpAgent.indexOf("Silk") > 0); 
+				httpAgent.indexOf("Tablet") > 0 || httpAgent.indexOf("Android") > 0 || 
+				httpAgent.indexOf("iPhone") > 0); 
 		if (mobile == false) {
 			// check it in session and override the flag if needed (session is never null)
 			mobile = Boolean.TRUE.equals(getSession().getAttribute(ATTR_WEBMOBILE));

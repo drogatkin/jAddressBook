@@ -39,5 +39,5 @@ public interface VersionConstant {
 
 	public static final String COPYRIGHT = "Copyright \u00a9 2000-"+java.time.Year.now().getValue()+" Dmitriy Rogatkin\n All rights reserved.";
 
-	public static final int BUILD = 69;
+	public static final int BUILD = 70;
 }
